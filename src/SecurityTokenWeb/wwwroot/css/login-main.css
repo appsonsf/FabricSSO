@@ -1,0 +1,41 @@
+/*å…¨å±€å®šä¹‰ ===================================================*/
+html, body{ height: 100%; }
+h1,h2,h3,h4,h5,p{ margin: 0px; padding: 0px; }
+body{ font-family: "Î¢ÈíÑÅºÚ","ºÚÌå"; font-size: 12px; background: #fff; }
+ul{ padding: 0px; margin: 0px; list-style: none; }
+a{ color: #555; }
+a:hover{ color: #005bac; }
+a, a:hover, a:focus{ text-decoration: none; }
+a img, img, a:focus{ outline: none; border: none; }
+input, textarea, button, a{ outline: none; }
+/*btn ===================================================*/
+.btn{ border: none; border-radius: 3px; }
+.btn-primary{ background: #005bac; }
+.btn-primary:hover{ background: #0064bd; }
+.error-info strong {
+    color: red;
+    font-size: 17px;
+}
+.validatecode {
+    width: 55%;
+    display: inline-block;
+}
+.btn-sendCode {
+    display: inline-block;
+    width: 40%;
+    margin-top: 0 !important;
+}
+
+#smserror {
+    color: red;
+    font-size: 15px;
+}
+.qr-login form {
+    
+}
+#qr_login {
+    height: 0!important;
+    width: 0 !important;
+    visibility: hidden;
+    display: block;
+}

@@ -1,0 +1,28 @@
+﻿@model LoginViewModel
+
+
+<div class="login-form qr-login" style="display: none;">
+    <input id="__HIDDEDVALUE_ScanLoginServiceUri" value="@ViewBag.ScanLoginServiceUri" type="hidden" />
+    <div class="title"><strong class="title">登录</strong><span>LOGIN</span></div>
+
+    <form asp-route="login" asp-fragment="qr">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <input type="hidden" asp-for="LoginType" value="3" />
+        <input type="hidden" class="form-control" id="qr_username" asp-for="Username" autofocus>
+        <input type="hidden" class="form-control" id="qr_password" asp-for="Password" autocomplete="off">
+        <a href="javascript:void(0)" class="btn btn-primary btn-block" onclick="window.location.reload()">刷新二维码</a>
+        <button type="submit" value="login" name="button" id="qr_login"></button>
+    </form>
+
+    <div class="qr">
+        <strong>请用手机扫描下面二维码</strong>
+        <br />
+        <i class="material-icons">keyboard_arrow_down</i>
+        <div id="qrcode" width="100%" height="100%"></div>
+    </div>
+    <div class="other-login">
+        <a href="#account" logintype="account"><i class="material-icons">lock_open</i>账号登录</a>
+        <br />
+        <a href="#sms" logintype="sms"><i class="material-icons">lock_open</i>手机短信登录</a>
+    </div>
+</div>

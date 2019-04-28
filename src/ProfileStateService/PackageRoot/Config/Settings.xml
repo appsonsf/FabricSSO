@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <!-- This is used by the StateManager's replicator. -->
+  <Section Name="ReplicatorConfig">
+    <Parameter Name="ReplicatorEndpoint" Value="ReplicatorEndpoint" />
+  </Section>
+  <!-- This is used for securing StateManager's replication traffic. -->
+  <Section Name="ReplicatorSecurityConfig" />
+
+  <!-- Add your custom configuration sections and parameters here. -->
+  <!--
+  <Section Name="MyConfigSection">
+    <Parameter Name="MyParameter" Value="Value1" />
+  </Section>
+  -->
+  <Section Name="RabbitMQ_sso2mdm">
+    <Parameter Name="HostAddress" Value="rabbitmq://localhost/sso2mdm" />
+    <Parameter Name="Username" Value="guest" />
+    <Parameter Name="Password" Value="guest" />
+  </Section>
+
+  <Section Name="RabbitMQ">
+    <Parameter Name="HostAddress" Value="rabbitmq://localhost/" />
+    <Parameter Name="Username" Value="guest" />
+    <Parameter Name="Password" Value="guest" />
+  </Section>
+
+  <Section Name="Diagnostics">
+    <!--Critial, Error, Warning, Informational, Verbose, LogAlways-->
+    <Parameter Name="EventSourceLevel" Value="Informational" />
+    <!-- 
+        Verbose = 0,
+        Debug = 1,
+        Information = 2,
+        Warning = 3,
+        Error = 4,
+        Fatal = 5
+    -->
+    <Parameter Name="SerilogEventLevel" Value="Debug" />
+    <Parameter Name="ElasticsearchHost" Value="http://127.0.0.1:9200" />
+  </Section>
+
+  <Section Name="BackupSettings.Minio">
+    <Parameter Name="Endpoint" Value="127.0.0.1:9000" />
+    <Parameter Name="AccessKey" Value="A9D5AK5B8KJPVNHGNEZ2" />
+    <Parameter Name="SecretKey" Value="nfiCNF3R0be3w8UD9xcAZlcJq4cYp3y4eT87WO0g" />
+  </Section>
+</Settings>

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="CsvHelper" Version="12.1.2" />
+    <PackageReference Include="IdentityServer4" Version="2.4.0" />
+    <PackageReference Include="MassTransit" Version="5.3.2" />
+    <PackageReference Include="AppsOnSF.Common.BaseServices" Version="1.0.10" />
+    <PackageReference Include="AppsOnSF.Common.Options" Version="1.0.4" />
+    <PackageReference Include="AppsOnSF.Common.Utilities" Version="1.0.1" />
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="3.3.654" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="3.3.654" />
+    <PackageReference Include="OM.Base.Csi.Messages" Version="1.0.2" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="ServiceFabric.Contrib.Common" Version="1.0.26" />
+    <PackageReference Include="ServiceFabric.Contrib.ConfigurationProvider" Version="1.0.18" />
+    <PackageReference Include="Z.ExtensionMethods" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OM.Base.Sso.Messages\OM.Base.Sso.Messages.csproj" />
+    <ProjectReference Include="..\OpenApiClient\OpenApiClient.csproj" />
+  </ItemGroup>
+
+</Project>

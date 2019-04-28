@@ -1,0 +1,31 @@
+﻿@model LogoutViewModel
+@using IdentityServer4.Extensions
+@using SecurityTokenWeb.Model
+@{
+
+    Layout = "_NewLayout";
+    ViewData["Titile"] = "登出";
+    string name = null;
+    if (!true.Equals(ViewData["signed-out"]))
+    {
+        name = Context.User?.GetDisplayName();
+    }
+}
+
+<!--注销登录-->
+<div class="login-form logout">
+    <h1>登出</h1><br /><br /><br />
+    @if (!string.IsNullOrWhiteSpace(name))
+    {
+        <div>您好！@name ， &nbsp;您要注销单点登录吗?</div>
+    }
+    <form asp-action="Logout">
+        <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+        <div class="form-group">
+            <button class="btn btn-primary btn-lg">&nbsp;&nbsp;注销&nbsp;&nbsp;</button>
+        </div>
+    </form>
+    @*<div class="other-login" style="margin-top: 100px;">
+            <a href="#"><i class="material-icons">lock_open</i>重新登录</a>
+        </div>*@
+</div>

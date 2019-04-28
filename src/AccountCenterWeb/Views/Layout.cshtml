@@ -1,0 +1,101 @@
+﻿@using AccountCenterWeb.Extension
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]-FabricSSO Demo 账户中心</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.staticfile.org/font-awesome/5.3.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="@Html.GenerateStaticUrl("/css/MaterialIcons.css")">
+    <link rel="stylesheet" type="text/css" href="@Html.GenerateStaticUrl("/css/account-main.css")">
+    <link rel="stylesheet" type="text/css" href="@Html.GenerateStaticUrl("/css/account.css")">
+    <script src="https://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="@Html.GenerateStaticUrl("/js/mobileCode.js")"></script>
+    <style>
+        .textActive {
+            text-decoration: underline;
+        }
+
+        .validation-summary-errors ul li {
+            padding: 9px;
+            margin: 1px;
+            text-align: center;
+            background-color: #f2dede;
+        }
+    </style>
+    @RenderSection("JS", false)
+</head>
+<body>
+    <div class="account-header">
+        <h1 class="logo"><img src="@Html.GenerateStaticUrl("/images/logo-white.png")" height="20"></h1>
+        <p class="system-name">
+            <img src="@Html.GenerateStaticUrl("/images/system-account.png")" height="20">
+        </p>
+        <p class="system-name">
+            <a href="/Register" class="@((Context.Request.Path.HasValue && Context.Request.Path.Value.Contains("Register", StringComparison.CurrentCultureIgnoreCase)) ? "" : "textActive")" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px;color: #fff;">
+                自注册
+            </a>
+            &nbsp;&nbsp;
+            <a href="/ResetPassword" class="@((Context.Request.Path.HasValue && Context.Request.Path.Value.Contains("ResetPassword", StringComparison.CurrentCultureIgnoreCase)) ? "" : "textActive")" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px;color: #fff;">
+                重置密码
+            </a>
+            &nbsp;&nbsp;
+            <a href="/FindUserName" class="@((Context.Request.Path.HasValue && Context.Request.Path.Value.Contains("FindUserName", StringComparison.CurrentCultureIgnoreCase)) ? "" : "textActive")" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px;color: #fff;">
+                找回用户名
+            </a>
+            &nbsp;&nbsp;
+            <a href="/ModifyPassword" class="@((Context.Request.Path.HasValue && Context.Request.Path.Value.Contains("ModifyPassword", StringComparison.CurrentCultureIgnoreCase)) ? "" : "textActive")" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px;color: #fff;">
+                修改密码(需登录)
+            </a>
+            &nbsp;&nbsp;
+            <a href="/ModifyMobile" class="@((Context.Request.Path.HasValue && Context.Request.Path.Value.Contains("ModifyMobile", StringComparison.CurrentCultureIgnoreCase)) ? "" : "textActive")" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px;color: #fff;">
+                修改手机号码(需登录)
+            </a>
+            &nbsp;&nbsp;
+            <a href="/ReName" class="@((Context.Request.Path.HasValue && Context.Request.Path.Value.Contains("ModifyMobile", StringComparison.CurrentCultureIgnoreCase)) ? "" : "textActive")" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px;color: #fff;">
+                修改用户名(需登录)
+            </a>
+        </p>
+        <p class="system-name" style="float: right">
+            <a href="/Login" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px; color: #fff;">
+                个人信息
+            </a>
+            &nbsp;&nbsp;
+            @if (!Context.User.Identity.IsAuthenticated)
+            {
+
+                <a href="/Login" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px; color: #fff;">
+                    登录
+                </a>
+            }
+            else
+            {
+                <a href="/Login/Logout" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px; color: #fff;">
+                    退出登录
+                </a>
+            }
+        </p>
+        <p class="system-name" style="float: right">
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <a href="/Login" style="margin-top: -15px; font-size: 15px; display: inline-block; height: 50px; color: #fff;">
+                    您好,@Context.GetUserName()
+                </a>
+            }
+        </p>
+    </div>
+    <div class="container">
+        <div class="row account-tabs">
+
+            @RenderBody()
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">@DateTime.Now.Year FabricSSO Demo</div>
+    </div>
+</body>
+</html>

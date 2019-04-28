@@ -1,0 +1,21 @@
+﻿@page
+@model SuccessModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+<form>
+    <div class="box">
+        <h3 class="title">@Model.Title</h3>
+        <div class="form">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="message-content">
+                        <i class="glyphicon glyphicon-ok customerIcon"></i>
+                        <strong class="customFont">@Model.Description</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pane-footer"></div>
+    </div>
+</form>

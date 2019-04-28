@@ -1,0 +1,77 @@
+﻿@page
+@model ModifyMobileModel
+@{
+    ViewData["Title"] = "修改手机号码";
+}
+@{
+    <script>
+        $(function () {
+            $(".sendcode").click(function () {
+                var mobile = $("#mobile").val();
+                var self = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: '/mobile/sendcode',
+                    data: { mobile: mobile, type: 2 },
+                    success: function (result) {
+                        if (result.success) {
+                            $(".sendcode").attr("disabled", true);
+                            //计时器
+                            var time = new Time(60, 1, function (sec) {
+                                self.attr("disabled", true).html("重发(" + sec + "s)");
+                            }, function () {
+                                self.attr("disabled", false).html("发送验证码");
+                            });
+                            time.start();
+                        } else {
+                            alert(result.message);
+                        }
+                    },
+                    error: function () {
+                        alert("请重新尝试发送短信!");
+                    },
+                    dataType: 'json'
+                });
+            });
+        })
+    </script>
+}
+
+<div class=" col-md-12 col-sm-12">
+    <div role="tabpanel" class="tab-pane active" id="_register">
+        <form method="post">
+            <div class="box">
+                <h3 class="title">修改手机号码,请输入新的手机号码</h3>
+                <div class="form">
+                    <div class="form-group row">
+                        <label for="mobile" class="col-sm-2 control-label">手机号码：</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="手机号码,最好输入您在人力资源预留的手机号码">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary sendcode" id="sendCode">发送验证码</button>
+                        </div>
+                        <span class="col-sm-3 remarks">请输入手机号码</span>
+                    </div>
+                    <div class="form-group row">
+                        <label for="code" class="col-sm-2 control-label">验证码：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="code" id="code" placeholder="验证码">
+                        </div>
+                        <span class="col-sm-3 remarks">请输入验证码</span>
+                    </div>
+                    @if (!ViewContext.ModelState.IsValid)
+                    {
+                        <div class="form-group row">
+                            <div class="col-sm-9">
+                                <div asp-validation-summary="All"></div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="pane-footer"><input type="submit" class="btn btn-primary" /></div>
+            </div>
+        </form>
+    </div>
+</div>

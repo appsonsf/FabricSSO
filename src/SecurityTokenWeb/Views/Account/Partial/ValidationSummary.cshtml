@@ -1,0 +1,7 @@
+﻿@if (!ViewContext.ModelState.IsValid)
+{
+    <div class="error-info">
+        <strong>错误:</strong>
+        <div asp-validation-summary="All" class="danger"></div>
+    </div>
+}

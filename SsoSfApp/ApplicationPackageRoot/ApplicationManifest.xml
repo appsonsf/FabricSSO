@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.0.10" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="ScanLoginService_InstanceCount" DefaultValue="1" />
+    <Parameter Name="ConfigService_InstanceCount" DefaultValue="1" />
+    <Parameter Name="SecurityTokenWeb_InstanceCount" DefaultValue="1" />
+    <Parameter Name="ManageConsoleWeb_InstanceCount" DefaultValue="1" />
+    <Parameter Name="AccountCenterWeb_InstanceCount" DefaultValue="1" />
+    <Parameter Name="ProfileStateService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="ProfileStateService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="ProfileStateService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="RabbitMQ_HostAddress" DefaultValue="rabbitmq://localhost/" />
+    <Parameter Name="RabbitMQ_Username" DefaultValue="guest" />
+    <Parameter Name="RabbitMQ_Password" DefaultValue="guest" />
+    <Parameter Name="RabbitMQ_mdm_HostAddress" DefaultValue="rabbitmq://localhost/mdm" />
+    <Parameter Name="RabbitMQ_mdm_Username" DefaultValue="guest" />
+    <Parameter Name="RabbitMQ_mdm_Password" DefaultValue="guest" />
+    <Parameter Name="RabbitMQ_sso2mdm_HostAddress" DefaultValue="rabbitmq://localhost/sso2mdm" />
+    <Parameter Name="RabbitMQ_sso2mdm_Username" DefaultValue="guest" />
+    <Parameter Name="RabbitMQ_sso2mdm_Password" DefaultValue="guest" />
+    <Parameter Name="ConfigDb_ConnectionString" DefaultValue="Data Source=(local)\SQLEXPRESS;Initial Catalog=SsoSfApp_ConfigDb;Integrated Security=True;MultipleActiveResultSets=true" />
+    <Parameter Name="IdSvr_IssuerUri" DefaultValue="http://localhost:10103" />
+    <Parameter Name="IdSvr_RequireHttps" DefaultValue="false" />
+    <Parameter Name="IdSvr_ScanLoginServiceUri" DefaultValue="http://localhost:10104" />
+    <Parameter Name="RSAKey" DefaultValue="bb1434cd-446e-4529-8afc-a64029e16da4" />
+    <Parameter Name="RedisHost" DefaultValue="127.0.0.1:6379" />
+    <Parameter Name="RedisEventAppName" DefaultValue="QrCodeApp" />
+    <Parameter Name="EncryptionPassword" DefaultValue="SignalRSelfHostScaleOut!#$" />
+    <Parameter Name="MC_HangfireDb_ConnectionString" DefaultValue="Data Source=(local)\SQLEXPRESS;Initial Catalog=SsoSfApp_MC_HangfireDb;Integrated Security=True;MultipleActiveResultSets=true" />
+    <Parameter Name="Minio_Endpoint" DefaultValue="127.0.0.1:9000" />
+    <Parameter Name="Minio_AccessKey" DefaultValue="A9D5AK5B8KJPVNHGNEZ2" />
+    <Parameter Name="Minio_SecretKey" DefaultValue="nfiCNF3R0be3w8UD9xcAZlcJq4cYp3y4eT87WO0g" />
+    <Parameter Name="Diagnostics_EventSourceLevel" DefaultValue="Informational" />
+    <Parameter Name="Diagnostics_SerilogEventLevel" DefaultValue="Information" />
+    <Parameter Name="Diagnostics_ElasticsearchHost" DefaultValue="http://127.0.0.1:9200" />
+    <Parameter Name="General_StaticFileSiteHost_AccountCenter" DefaultValue="http://localhost:10101" />
+    <Parameter Name="General_StaticFileSiteHost_SecurityToken" DefaultValue="http://localhost:10103" />
+  </Parameters>
+  <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
+       should match the Name and Version attributes of the ServiceManifest element defined in the 
+       ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="ScanLoginServicePkg" ServiceManifestVersion="1.0.9" />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="Diagnostics">
+            <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
+            <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
+            <Parameter Name="ElasticsearchHost" Value="[Diagnostics_ElasticsearchHost]" />
+          </Section>
+          <Section Name="RedisConfig">
+            <Parameter Name="Host" Value="[RedisHost]" />
+            <Parameter Name="EventAppName" Value="[RedisEventAppName]" />
+            <Parameter Name="EncryptionPassword" Value="[EncryptionPassword]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.9" />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="ConnectionStrings">
+            <Parameter Name="DefaultConnection" Value="[ConfigDb_ConnectionString]" />
+          </Section>
+          <Section Name="Diagnostics">
+            <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
+            <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
+            <Parameter Name="ElasticsearchHost" Value="[Diagnostics_ElasticsearchHost]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.9" />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="RabbitMQ">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_Password]" />
+          </Section>
+          <Section Name="RabbitMQ_sso2mdm">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_sso2mdm_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_sso2mdm_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_sso2mdm_Password]" />
+          </Section>
+          <Section Name="Diagnostics">
+            <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
+            <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
+            <Parameter Name="ElasticsearchHost" Value="[Diagnostics_ElasticsearchHost]" />
+          </Section>
+          <Section Name="BackupSettings.Minio">
+            <Parameter Name="Endpoint" Value="[Minio_Endpoint]" />
+            <Parameter Name="AccessKey" Value="[Minio_AccessKey]" />
+            <Parameter Name="SecretKey" Value="[Minio_SecretKey]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.0.9" />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="General">
+            <Parameter Name="StaticFileSiteHost" Value="[General_StaticFileSiteHost_SecurityToken]" />
+          </Section>
+          <Section Name="IdSvr">
+            <Parameter Name="IssuerUri" Value="[IdSvr_IssuerUri]" />
+            <Parameter Name="RequireHttps" Value="[IdSvr_RequireHttps]" />
+            <Parameter Name="ScanLoginServiceUri" Value="[IdSvr_ScanLoginServiceUri]" />
+          </Section>
+          <Section Name="RabbitMQ">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_Password]" />
+          </Section>
+          <Section Name="Diagnostics">
+            <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
+            <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
+            <Parameter Name="ElasticsearchHost" Value="[Diagnostics_ElasticsearchHost]" />
+          </Section>
+          <Section Name="RedisConfig">
+            <Parameter Name="Host" Value="[RedisHost]" />
+          </Section>
+          <Section Name="RSA">
+            <Parameter Name="Key" Value="[RSAKey]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.0.10" />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="ConnectionStrings">
+            <Parameter Name="HangfireDbConnection" Value="[MC_HangfireDb_ConnectionString]" />
+          </Section>
+          <Section Name="IdSvr">
+            <Parameter Name="IssuerUri" Value="[IdSvr_IssuerUri]" />
+            <Parameter Name="RequireHttps" Value="[IdSvr_RequireHttps]" />
+          </Section>
+          <Section Name="RabbitMQ_sso2mdm">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_sso2mdm_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_sso2mdm_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_sso2mdm_Password]" />
+          </Section>
+          <Section Name="RabbitMQ">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_Password]" />
+          </Section>
+          <Section Name="RabbitMQ_mdm">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_mdm_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_mdm_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_mdm_Password]" />
+          </Section>
+          <Section Name="Diagnostics">
+            <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
+            <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
+            <Parameter Name="ElasticsearchHost" Value="[Diagnostics_ElasticsearchHost]" />
+          </Section>
+          <Section Name="RedisConfig">
+            <Parameter Name="Host" Value="[RedisHost]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.0.9" />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="General">
+            <Parameter Name="StaticFileSiteHost" Value="[General_StaticFileSiteHost_AccountCenter]" />
+          </Section>
+          <Section Name="RabbitMQ">
+            <Parameter Name="HostAddress" Value="[RabbitMQ_HostAddress]" />
+            <Parameter Name="Username" Value="[RabbitMQ_Username]" />
+            <Parameter Name="Password" Value="[RabbitMQ_Password]" />
+          </Section>
+          <Section Name="IdSvr">
+            <Parameter Name="IssuerUri" Value="[IdSvr_IssuerUri]" />
+            <Parameter Name="RequireHttps" Value="[IdSvr_RequireHttps]" />
+          </Section>
+          <Section Name="Diagnostics">
+            <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
+            <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
+            <Parameter Name="ElasticsearchHost" Value="[Diagnostics_ElasticsearchHost]" />
+          </Section>
+          <Section Name="RedisConfig">
+            <Parameter Name="Host" Value="[RedisHost]" />
+          </Section>
+          <Section Name="RSA">
+            <Parameter Name="Key" Value="[RSAKey]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
+  </ServiceManifestImport>
+  <DefaultServices>
+    <!-- The section below creates instances of service types, when an instance of this 
+         application type is created. You can also create one or more instances of service type using the 
+         ServiceFabric PowerShell module.
+         
+         The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="ScanLoginService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="ScanLoginServiceType" InstanceCount="[ScanLoginService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="ConfigService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="ConfigServiceType" InstanceCount="[ConfigService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="ProfileStateService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="ProfileStateServiceType" TargetReplicaSetSize="[ProfileStateService_TargetReplicaSetSize]" MinReplicaSetSize="[ProfileStateService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ProfileStateService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="SecurityTokenWeb" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="SecurityTokenWebType" InstanceCount="[SecurityTokenWeb_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="ManageConsoleWeb" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="ManageConsoleWebType" InstanceCount="[ManageConsoleWeb_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="AccountCenterWeb" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="AccountCenterWebType" InstanceCount="[AccountCenterWeb_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+  </DefaultServices>
+</ApplicationManifest>

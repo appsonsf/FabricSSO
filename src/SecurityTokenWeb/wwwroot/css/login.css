@@ -1,0 +1,41 @@
+
+/*login ===================================================*/
+
+.login{ height: 100%; }
+.login-image{ height: 100%; padding: 0px; position: relative; margin-right: 340px; }
+.login-image-text{ position: absolute; left: 60px; bottom: 100px; color: #fff; font-family: "瀹嬩綋"; }
+.login-image-text h2{ display: block; margin-bottom: 20px; font-weight: bold; }
+.login-image-text p{ width: 70%; line-height: 24px; }
+
+.login-right{ position: absolute; top: 0px; right: 0px; width: 340px; height: 100%; padding: 30px 40px; background: #fff url(../images/login-top-image.png) top right no-repeat; background-size: 40% auto; box-shadow: 0px -30px 30px rgba(0,0,0,0.5); }
+.login-form{ padding: 0px 15px; margin-top: 80%; }
+.login-form .title{ font-family: "瀹嬩綋"; margin-bottom: 30px; }
+.login-form .title strong{ font-size: 24px; color: #005bac; }
+.login-form .title span{ display: block; font-size: 12px; color: #f08300; }
+.login-form .input{ position: relative; }
+.login-form .input i{ position: absolute; display: block; width: 34px; height: 34px; margin-top: 1px; line-height: 36px; color: #9fa0a0; text-align: center; font-size: 18px; border-right: solid 1px #eee; }
+.login-form .input input{ border: solid 1px #ddd; border-radius: 3px; height: 36px; font-size: 12px; padding-left: 45px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; }
+.login-form .input input:focus{ border-color: #005bac; color: #005bac; }
+.login-form .checkbox{ float: left; color: #888; }
+.login-form .forget{ float: right; margin-top: 10px; color: #888; }
+.login-form .checkbox:hover, .login-form .forget:hover{ color: #005bac; }
+.login-form .btn{ margin-top: 50px; padding: 8px; box-shadow: 0px 3px 5px rgba(0,0,0,0.1); }
+.login-form .other-login{ text-align: center; padding: 30px 0px; }
+.login-form .other-login a{ color: #f39800; line-height: 24px; }
+.login-form .other-login a i{ font-size: 12px; margin-right: 5px; }
+.qr-login .qr{ text-align: center; }
+.qr .qr strong{ display: block; font-weight: normal; color: #888; }
+
+/*logout ===================================================*/
+
+.logout{ text-align: center; margin-top: 90%; }
+.logout h1{ color: #005bac; font-family: "宋体"; display: block; margin-bottom: 20px; }
+.logout p{ color: #f08300; font-family: "宋体"; font-size: 16px; }
+
+/*自适应页面大小*/
+@media screen and (max-width: 450px) {
+    .login-right {width: 100% !important;}
+    .login-image {display: none;}
+    .login-form { margin-top: 30%;}
+    .login-form img {margin: 0 auto;}
+}

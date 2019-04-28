@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - ManageConsole.Web</title>
+    <!-- Bootstrap -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/custom.min.css" rel="stylesheet" />
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+    <!--pNotify-->
+    <link href="~/css/pnotify.custom.min.css" rel="stylesheet">
+    <link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="~/css/loaders.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body class="nav-md">
+    @Html.AntiForgeryToken()
+    @RenderBody()
+
+    @{
+        var userName = string.Empty;
+        if (this.Context.User.Identity.IsAuthenticated && Context.User.Claims.FirstOrDefault(u => u.Type == "name") != null)
+        {
+            userName = Context.User.Claims.FirstOrDefault(u => u.Type == "name").Value;
+        }
+
+    }
+    <input type="hidden" id="_username" value="@(userName)" />
+    <div id="react-app" class="container body">
+
+    </div>
+    <!-- jQuery -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jstree.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/pnotify.custom.min.js"></script>
+    <script src="~/js/select2.min.js"></script>
+    <script src="css/jquery-confirm.min.js"></script>
+    <script src="~/js/jquery.tagsinput.js"></script>
+    <!-- Custom Theme Scripts -->
+
+    <script src="~/build/vendor.js"></script>
+    <script src="~/build/main-client.js?v=20180828"></script>
+    <script src="~/js/custom.js"></script>
+</body>
+</html>

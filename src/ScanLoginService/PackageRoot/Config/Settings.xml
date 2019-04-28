@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <!-- 在此处添加你的自定义配置节和参数 -->
+  
+  <Section Name="Diagnostics">
+    <!--Critial, Error, Warning, Informational, Verbose, LogAlways-->
+    <Parameter Name="EventSourceLevel" Value="Informational" />
+    <!-- 
+        Verbose = 0,
+        Debug = 1,
+        Information = 2,
+        Warning = 3,
+        Error = 4,
+        Fatal = 5
+    -->
+    <Parameter Name="SerilogEventLevel" Value="Debug" />
+    <Parameter Name="ElasticsearchHost" Value="http://127.0.0.1:9200" />
+  </Section>
+  
+  <Section Name="RedisConfig">
+    <Parameter Name="Host" Value="127.0.0.1:6379"/>
+    <Parameter Name="EventAppName" Value="QrCodeApp"/>
+    <Parameter Name="EncryptionPassword" Value="SignalRSelfHostScaleOut!#$" />
+  </Section>
+</Settings>

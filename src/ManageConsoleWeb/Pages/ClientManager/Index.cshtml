@@ -1,0 +1,734 @@
+﻿@page
+@model IndexModel
+@{
+}
+
+
+@{
+
+    ViewData["Title"] = "客户端管理";
+}
+
+<style>
+    .select2-drop {
+        z-index: 99999;
+    }
+
+</style>
+
+
+<div id="vueApp">
+    <form method="post">
+        <div id="content">
+            <div id="content-header">
+                <h1>单点登录的客户端管理</h1>
+ 
+            </div>
+            <div id="breadcrumb">
+                <a href="\" title="回到欢迎页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+                <a href="/ClientManager" class="current">客户端管理</a>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+
+
+
+                    <div class="widget-box">
+                        <div class="widget-title">
+                            <span class="icon">
+                                <i class="fa fa-th"></i>
+                            </span>
+                            
+                            <span class="btn btn-primary" v-on:click="ShowAddClientModal()">添加新客户端</span>
+                            <span class="label label-info"> </span>
+                        </div>
+                        <div class="widget-content">
+                            <table class="table table-bordered table-striped table-hover with-check">
+                                <thead>
+                                    <tr>
+                                        <th>客户端名称</th>
+                                        <th>客户端ID</th>
+                                        <th>授权类型</th>
+ 
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in ListData">
+                                        <td  >{{ item.clientName }}</td>
+                                        <td >{{ item.clientId }}</td>
+                                        <td  >{{ item.allowedGrantTypes | showGrandType }} </td>
+
+                                     
+
+                                   
+                                        <td>
+                                            <span class="btn btn-default" v-on:click="ActionClient(1,item.clientId)" data-sid=item.ClientId>编辑</span>
+                                            &nbsp;&nbsp;
+                                            <span class="btn btn-default" v-on:click="ActionClient(2,item.clientId)" data-sid=item.ClientId>删除</span>
+                                            &nbsp;&nbsp;
+                                            <span class="btn btn-default" v-on:click="ActionClient(4,item.clientId)" data-sid=item.ClientId>查看</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div> 
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">{{ActionTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal" style="border:1px solid #ffffff;">
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">客户端名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" v-model="action_ClientName" id="action_ClientName" name="action_ClientName" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">客户端ID</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" v-model="action_ClientId" id="action_ClientId" name="action_ClientId" placeholder="项目缩写_系统缩写_客户端类型(如Mobile，Web，Desktop)_001">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <textarea class="col-sm-12 form-control" readonly>企业智能管理平台：OM、项目管理系统：PM、共享财务系统：FSSC、人力资源系统：HR、协同办公系统：OA。Clientid编码规则：项目缩写+"_"+系统缩写+"_"+客户端类型(如Mobile，Web，Desktop)+"_"+顺序号(3位)。比如移动端即时通的ClientId为：OM_AppStore_Mobile_001；BI门户的ClientId为：OM_PORTAL_Web_001</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="control-label col-sm-3" for="inputGroupSuccess2">密钥</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" v-model="action_ClientSecrets"  id="action_ClientSecrets" name="action_ClientSecrets"
+                                               aria-describedby="inputGroupSuccess2Status">
+                                        <span class="input-group-addon" v-on:click="CreateSecret" id="CreateSecretSpan">{{SecretText}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">授权类型</label>
+                                <div class="col-sm-9">
+                                    <select id="action_GrantType" v-model="action_GrantType"  multiple="multiple" name="action_GrantType" class="js-example-responsive" style="width: 85%">
+                                        <option value="implicit">Implicit</option>
+                                        <option value="client_credentials">ClientCredentials</option>
+                                        <option value="authorization_code">Code</option>
+                                        <option value="hybrid">Hybrid</option>
+                                        <option value="password">ResourceOwnerPassword</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">请求作用域</label>
+                                <div class="col-sm-9">
+                                    <select id="action_Scopes" multiple="multiple" name="action_Scopes" class="js-example-responsive">
+                                        <optgroup label="Identity资源">
+                                            <option v-for="item in IdentityResources" b-bind:value="item.name">{{ item.name }}</option>
+                                        </optgroup>
+                                        <optgroup label="api资源">
+                                            <option v-for="item in API_IdentityResource" b-bind:value="item.name">{{ item.name }}</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">授权登录地址</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" v-model="action_RedirectUris" id="action_RedirectUris" name="action_RedirectUris"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">授权登出地址</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" v-model="action_PostLogoutRedirectUris" id="action_PostLogoutRedirectUris" name="action_PostLogoutRedirectUris"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ModalCancelText}}</button>
+                                <button type="button" class="btn btn-primary" v-on:click="SaveClient" id="actionSaveBtn"> 保存  </button>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+  
+@section Scripts{
+ 
+    <script src="~/lib/UnicornAdmin/js/select2.min.js"></script> 
+    <script src="~/lib/layer/layer.js"></script>
+    <link href="~/lib/layer/theme/default/layer.css" rel="stylesheet" /> 
+    <script src="~/lib/UnicornAdmin/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/unicorn.js"></script>
+    <script src="~/lib/UnicornAdmin/js/unicorn.tables.js"></script>
+    <script type="text/javascript"> 
+        function toast(msg) {
+            layer.msg(msg, {
+                time: 2000
+            });
+        }
+        function guid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        } 
+        Vue.filter('showClientID', function (value) {
+            if (value.length >= 9)
+                return value.substr(0, 8); else return value;
+        });
+        Vue.filter('ShowScret', function (value) {
+            var rStr = "";
+            for (var i = 0; i < value.length; i++) {
+                rStr += value[i].value + ",";
+            }
+            if (rStr != "") rStr = rStr.substr(0, rStr.length - 1); 
+            return "显示";
+        });
+        Vue.filter('showCollection', function (value) { 
+            if (value && value.length >= 1) {
+                return value.join(','); 
+            }
+            return "";
+        });
+        var tempSelectGrantType = {
+            Implicit: ["implicit"],
+            ImplicitAndClientCredentials: ["implicit", "client_credentials"],
+            Code: ["authorization_code"],
+            CodeAndClientCredentials: ["authorization_code", "client_credentials"],
+            Hybrid: ["hybrid"],
+            HybridAndClientCredentials: ["hybrid", "client_credentials"],
+            ClientCredentials: ["client_credentials"],
+            ResourceOwnerPassword: ["password"],
+            ResourceOwnerPasswordAndClientCredentials: ["password", "client_credentials"]
+        };
+        Vue.filter('showGrandType', function (value) {
+            if (value && value.length >= 1) { 
+                    var tempV = value.join(',');
+                    for (var item in tempSelectGrantType) {
+                        if (tempSelectGrantType[item].join(',') == tempV) {
+                            value = item; break;
+                        } 
+                    } 
+                return value.toString();
+            }
+            return "";
+        });
+        function format(state) { 
+            return state.text;
+        }
+        var pageCount = 0, pageIndex = 0;
+        var app = new Vue({
+            el: '#vueApp',
+            data: {
+                currentBZ: 1,
+                showError: false,
+                ErrorMessage: "",
+                ActionType: 0,//3添加  1修改  2删除,4查看
+                pageIndex: 0,
+                pageCount: 0,
+                TotalCount: 0,
+                ListData: [],
+                ActionTitle: "添加客户端",
+                SecretText: "生成密钥", 
+                ModalCancelText:"取消",
+                action_ClientName: "",
+                action_ClientId: "",
+                action_ClientSecrets: "",
+                action_GrantType: "",
+                action_Scopes: "",
+                action_RedirectUris: "",
+                action_PostLogoutRedirectUris: "",
+                action_CreateTime: "",
+                select2_selGrantType: "",
+                select2_selAction_Scopes: "",
+                IdentityResources: [],
+                API_IdentityResource: []
+            },
+            computed: {
+                validation: function () { }
+            },
+            methods: {
+                InitData: function () { 
+                    app.GetListData();
+                },
+                GetListData: function (t) { 
+                    $.ajax({
+                        type: "POST",
+                        url: "/ClientManager?handler=AllClient",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                        data: JSON.stringify({
+                            ClientName: "qwe"
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.success) {
+                                for (var i = 0; i < result.data.length; i++) {
+                                    app.ListData.push(result.data[i]);
+                                }  
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response);
+                        },
+                        complete: function () {
+
+                        }
+                    });
+                }, 
+                ShowAddClientModal: function () {
+                    app.ActionType = 3;
+                    $("#exampleModal").modal('show');
+                    $("#actionSaveBtn").show();
+                    $("#exampleModal").on("shown.bs.modal", function () {  
+                        app.select2_selGrantType = $("#action_GrantType").select2({
+                            formatResult: format,
+                            width: "340px",
+                            formatSelection: format,
+                            escapeMarkup: function (m) {  return m; }
+                        });
+                    });
+                    $.ajax({
+                        type: "GET",
+                        url: "/ResourcesManager?handler=GetAllResources",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.success) {
+                                app.API_IdentityResource = result.data.apiResources;
+                                app.IdentityResources = result.data.identityResources;
+                                //完成select2的设置
+                                app.select2_selAction_Scopes = $("#action_Scopes").select2({
+                                    width: "340px", maximumInputLength: 5,
+                                    placeholder: "请选择需要的请求访问范围"
+                                }).val("").trigger('change');  
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response);
+                        }
+                    });                    
+                    $("#action_GrantType").select2({
+                        formatResult: format,
+                        width: "340px",
+                        formatSelection: format,
+                        escapeMarkup: function (m) { return m; }
+                    }).val("").trigger('change');
+                    app.action_ClientName = "";
+                    app.action_ClientId = "";
+                    app.action_ClientSecrets = "";
+                    app.SecretText = "生成密钥"; 
+                    app.ActionTitle = "添加客户端";
+                    app.GrantType = "";
+                    app.action_GrantType = "";
+                    app.action_Scopes = "";
+                    app.action_RedirectUris = "";
+                    app.action_PostLogoutRedirectUris = "";
+                    app.IsDisabledActionClient(false);
+                    app.SecretText = "生成密钥";
+                },
+                CreateSecret: function () {
+                    if (app.ActionType != 4) {
+                        if (app.SecretText == "重置密钥") {
+                            var LayerIndex=   layer.confirm('您确定要重置密钥吗？重置后必须更新所有客户端密钥才能使用', {
+                                btn: ['确定', '取消'] //按钮
+                            }, function () {
+                                app.action_ClientSecrets = guid();
+                                toast("已经更新密钥");
+                                layer.close(LayerIndex); 
+                            }, function () { });
+                        } else { 
+                            app.action_ClientSecrets = guid();
+                        } 
+                    }
+                   
+                },
+                ActionClient: function (t, r) {
+                    //console.log("t=" + t + ", r=" + r);
+                    //t操作类型，1编辑，2删除，4 查看 r 请求操作的客户端ID
+                    var data = {
+                        ZT_SysNo: r,
+                        articleType: 3, articlesActionType: t, CommentContent: r
+                    }; 
+                    if (t == 1) {
+                        app.IsDisabledActionClient(false);
+                        app.SecretText = "重置密钥";
+                        app.ActionType = t;
+                        $("#actionSaveBtn").show();
+                        $.ajax({
+                            type: "GET",
+                            url: "/ResourcesManager?handler=GetAllResources",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                    $('input:hidden[name="__RequestVerificationToken"]').val());
+                            },
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            async: false,
+                            success: function (result) {
+                                if (result.success) {
+                                    app.API_IdentityResource = result.data.apiResources;
+                                    app.IdentityResources = result.data.identityResources;
+                                    //完成select2的设置
+                                    app.select2_selAction_Scopes = $("#action_Scopes").select2({
+                                        width: "340px", maximumInputLength: 5
+                                    });
+                                } else {
+                                    alert(result.message);
+                                }
+                            },
+                            failure: function (response) {
+                                alert(response);
+                            }
+                        });
+                        $.ajax({
+                            type: "POST",
+                            url: "/ClientManager?handler=GetByClientID",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                    $('input:hidden[name="__RequestVerificationToken"]').val());
+                            },
+                            data: JSON.stringify({
+                                ClientId: r
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.success) {
+                                    //打开model，赋值
+                                    var scret_ = "";
+                                    for (var i = 0; i < result.data.clientSecrets.length; i++) {
+                                        scret_ += result.data.clientSecrets[i].value + ",";
+                                    }
+                                    if (scret_ != "") scret_ = scret_.substr(0, scret_.length - 1);
+                                    app.action_ClientName = result.data.clientName;
+                                    app.action_ClientId = result.data.clientId;
+                                    app.action_ClientSecrets = scret_;
+                                    app.action_GrantType = result.data.allowedGrantTypes.join(',');
+                                    app.action_Scopes = result.data.allowedScopes.join(',');
+                                    $("#action_Scopes").select2({
+                                        width: "340px", maximumInputLength: 5
+                                    }).val(app.action_Scopes.split(',')).trigger('change');
+                                    //var grandTpe_update = "";
+                                    //for (var item in tempSelectGrantType) {
+                                    //    if (tempSelectGrantType[item].join(',') == app.action_GrantType
+                                    //        || tempSelectGrantType[item].reverse().join(',') == app.action_GrantType) {
+                                    //        grandTpe_update = item; break;
+                                    //    }
+                                    //}
+                                    $("#action_GrantType").select2({
+                                        formatResult: format,
+                                        width: "340px",
+                                        formatSelection: format,
+                                        escapeMarkup: function (m) { return m; }
+                                    }).val(app.action_GrantType.split(',')).trigger('change');
+                                    app.action_RedirectUris = result.data.redirectUris.join('\n');
+                                    app.action_PostLogoutRedirectUris = result.data.postLogoutRedirectUris.join('\n');
+                                    app.ActionTitle = "编辑客户端";
+                                    $("#exampleModal").modal('show');
+                                    app.action_ClientSecrets = "重置密码";
+                                } else {
+                                    alert(result.message);
+                                }
+                            },
+                            failure: function (response) {
+                                alert(response);
+                            }
+                        });
+                    } else if (t == 2) {
+                        layer.confirm('您确定要删除该客户端吗？', {
+                            btn: ['确定', '取消'] //按钮
+                        }, function () {
+                            app.ActionType = t;
+                            $.ajax({
+                                type: "POST",
+                                url: "/ClientManager?handler=ActionClient",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: JSON.stringify({
+                                    ClientId: r,
+                                    action: "del"
+                                }),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.success) {
+                                        //打开model，赋值
+                                        window.location.reload();
+                                        // $("#exampleModal").modal('hide');
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                }
+                            });
+                        }, function () { });
+                    } else if (t == 4) {
+                        $("#actionSaveBtn").hide();
+                        app.ActionType = t;
+                        $.ajax({
+                            type: "GET",
+                            url: "/ResourcesManager?handler=GetAllResources",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                    $('input:hidden[name="__RequestVerificationToken"]').val());
+                            },
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            async: false,
+                            success: function (result) {
+                                if (result.success) {
+                                    app.API_IdentityResource = result.data.apiResources;
+                                    app.IdentityResources = result.data.identityResources;
+                                    //完成select2的设置
+                                    app.select2_selAction_Scopes = $("#action_Scopes").select2({
+                                        width: "340px", maximumInputLength: 5
+                                    });
+                                } else {
+                                    alert(result.message);
+                                }
+                            },
+                            failure: function (response) {
+                                alert(response);
+                            }
+                        });
+                        $.ajax({
+                            type: "POST",
+                            url: "/ClientManager?handler=GetByClientID",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                    $('input:hidden[name="__RequestVerificationToken"]').val());
+                            },
+                            data: JSON.stringify({
+                                ClientId: r
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.success) {
+                                    //打开model，赋值 
+                                    app.action_ClientName = result.data.clientName;
+                                    app.action_ClientId = result.data.clientId;
+                                    app.action_ClientSecrets = "密钥不能查看，如果忘记，请编辑重置密钥";
+                                    app.action_GrantType = result.data.allowedGrantTypes.join(',');
+                                    app.action_Scopes = result.data.allowedScopes.join(',');
+                                    $("#action_Scopes").select2({
+                                        width: "340px", maximumInputLength: 5
+                                    }).val(app.action_Scopes.split(',')).trigger('change');
+                                    //var grandTpe_update = "";
+                                    //for (var item in tempSelectGrantType) {
+                                    //    if (tempSelectGrantType[item].join(',') == app.action_GrantType
+                                    //        || tempSelectGrantType[item].reverse().join(',') == app.action_GrantType) {
+                                    //        grandTpe_update = item; break;
+                                    //    }
+                                    //}
+                                    $("#action_GrantType").select2({
+                                        formatResult: format,
+                                        width: "340px",
+                                        formatSelection: format,
+                                        escapeMarkup: function (m) { return m; }
+                                    }).val(app.action_GrantType.split(',')).trigger('change');
+                                    app.action_RedirectUris = result.data.redirectUris.join('\n');
+                                    app.action_PostLogoutRedirectUris = result.data.postLogoutRedirectUris.join('\n');
+                                    app.ActionTitle = "查看客户端信息";
+                                    app.IsDisabledActionClient(true);
+                                    $("#exampleModal").modal('show');
+                                  
+                                } else {
+                                    alert(result.message);
+                                }
+                            },
+                            failure: function (response) {
+                                alert(response);
+                            }
+                        }); 
+                    }
+                },
+                IsDisabledActionClient: function (t) { 
+                    if (t) { 
+                        $("#exampleModal input").each(function () {
+                            $(this).attr("disabled", "disabled");
+                        });
+                        $(".js-example-responsive").prop("disabled", true);
+                        $(".select2-search-choice").css("color", "black"); 
+                        $("#exampleModal textarea").each(function () {
+                            $(this).attr("disabled", "disabled");
+                        });
+                        app.SecretText = "";
+                        app.ModalCancelText = "关闭";
+                    } else { 
+                        $("#exampleModal input").each(function () {
+                            $(this).removeAttr("disabled");
+                        });
+                        $(".js-example-responsive").prop("disabled", false);
+                        //$(".select2-search-choice").css("color", "black");
+                        $("#exampleModal textarea").each(function () {
+                            $(this).removeAttr("disabled");
+                        });
+                        app.SecretText = "密钥";
+                        app.ModalCancelText = "取消";
+                    }
+
+                },
+                SaveClient: function () { 
+                    //ActionType ,//3添加  1修改  2删除
+
+                    if (app.ActionType == 1) {
+                        app.action_GrantType = $("#action_GrantType").select2('data');
+                        app.action_Scopes = $("#action_Scopes").select2('data');
+                        if (app.action_ClientName == "" || app.action_ClientId == "" || app.action_ClientSecrets == ""
+                            || app.action_GrantType == "" || app.action_GrantType == undefined || app.action_Scopes == "" || app.action_Scopes.length <= 0 || app.action_RedirectUris == ""
+                            || app.action_PostLogoutRedirectUris == "") {
+                            alert("所有文本框都是必填");
+                        } else {
+                            var redirect = [];
+                            redirect = app.action_RedirectUris.split("\n");
+
+                            var LogOutRedirect = [];
+                            var secretsPwd = "";
+                            LogOutRedirect = app.action_PostLogoutRedirectUris.split("\n");
+                            if (app.action_ClientSecrets != "重置密码" && app.action_ClientSecrets!="") { 
+                                secretsPwd = app.action_ClientSecrets;
+                            }
+
+                            var GrantType = [];
+                            for (var i = 0; i < app.action_GrantType.length; i++) {
+                                GrantType.push(app.action_GrantType[i].id);
+                            }
+                            var _Scopes = [];
+                            for (var i = 0; i < app.action_Scopes.length; i++) {
+                                _Scopes.push(app.action_Scopes[i].text);
+                            }
+
+                            var tempData = JSON.stringify({
+                                ClientName: app.action_ClientName,
+                                ClientId: app.action_ClientId,
+                                ClientSecrets: [{ "description": null, "value": secretsPwd, "expiration": null, "type": "SharedSecret" }],
+                                AllowedGrantTypes: GrantType,
+                                AllowedScopes: _Scopes,
+                                RedirectUris: redirect,
+                                PostLogoutRedirectUris: LogOutRedirect,
+                                action: "update"
+                            });
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/ClientManager?handler=ActionClient",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: tempData,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.success) {
+                                        //打开model，赋值
+                                        window.location.reload();
+                                        // $("#exampleModal").modal('hide');
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                }
+                            });
+                        }
+                    }
+                    if (app.ActionType == 3) {
+                        app.action_GrantType = $("#action_GrantType").select2('data');
+                        app.action_Scopes = $("#action_Scopes").select2('data');
+                        if (app.action_ClientName == "" || app.action_ClientId == "" || app.action_ClientSecrets == ""
+                            || app.action_GrantType == "" || app.action_GrantType == undefined || app.action_Scopes == "" || app.action_Scopes.length<=0 || app.action_RedirectUris == ""
+                            || app.action_PostLogoutRedirectUris == "") {
+                            alert("所有文本框都是必填");
+                        } else {
+                            var redirect = [];
+                            redirect = app.action_RedirectUris.split("\n");
+
+                            var LogOutRedirect = [];
+                            LogOutRedirect = app.action_PostLogoutRedirectUris.split("\n");
+                             
+                            var GrantType = [];
+                            for (var i = 0; i < app.action_GrantType.length; i++) {
+                                GrantType.push(app.action_GrantType[i].id);
+                            }
+                            var _Scopes = [];
+                            for (var i = 0; i < app.action_Scopes.length; i++) {
+                                _Scopes.push(app.action_Scopes[i].text);
+                            }
+
+                            var tempData = JSON.stringify({
+                                ClientName: app.action_ClientName,
+                                ClientId: app.action_ClientId,
+                                ClientSecrets: [{ "description": null, "value": app.action_ClientSecrets, "expiration": null, "type": "SharedSecret" }],
+                                AllowedGrantTypes: GrantType,
+                                AllowedScopes: _Scopes,
+                                RedirectUris: redirect,
+                                PostLogoutRedirectUris: LogOutRedirect,
+                                action: "add"
+                            });
+                            $.ajax({
+                                type: "POST",
+                                url: "/ClientManager?handler=ActionClient",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: tempData,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.success) {
+                                        //打开model，赋值
+                                        window.location.reload();
+                                        // $("#exampleModal").modal('hide');
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                }
+                            });
+
+                        }
+                    }
+                }
+            }
+        });
+        app.InitData();
+    </script>
+
+}
+
+
+

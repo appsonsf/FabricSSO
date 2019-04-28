@@ -1,0 +1,458 @@
+﻿@page
+@model IndexModel
+@{
+
+    ViewData["Title"] = "资源管理";
+}
+
+<link href="~/lib/layer/theme/default/layer.css" rel="stylesheet" />
+
+<div id="vueApp">
+    <form method="post">
+
+
+        <div id="content">
+            <div id="content-header">
+                <h1>单点登录的资源管理</h1>
+                <!--
+     <div class="btn-group">
+         <a class="btn btn-large" title="Manage Files"><i class="fa fa-file"></i></a>
+         <a class="btn btn-large" title="Manage Users"><i class="fa fa-user"></i></a>
+         <a class="btn btn-large" title="Manage Comments"><i class="fa fa-comment"></i><span class="label label-danger">5</span></a>
+         <a class="btn btn-large" title="Manage Orders"><i class="fa fa-shopping-cart"></i></a>
+     </div>
+    -->
+            </div>
+            <div id="breadcrumb">
+                <a href="\" title="" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+                <a href="#" class="current">资源管理</a>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <span class="btn btn-primary" v-on:click="AddClient(1)">添加API资源</span>
+                    <span class="btn btn-primary" v-on:click="AddClient(2)">添加Identity资源</span>
+
+                    <div class="widget-box">
+
+                        <div class="widget-title">
+                            <span class="icon">
+                                <i class="fa fa-th"></i>
+                            </span>
+                            <!--
+    <h5>Static table with checkboxes in box with padding</h5>
+    <span class="label label-info">Featured</span>
+    -->
+                        </div>
+                        <div class="widget-content">
+                            <table class="table table-bordered table-striped table-hover with-check">
+                                <thead>
+                                    <tr>
+                                        <td>资源类型</td>
+                                        <th>资源名称</th>
+                                        <th>资源显示名称</th>
+                                        <!--<th>资源标记</th>-->
+                                        <th>描述</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in IdentityResourcesData">
+                                        <td>IdentityResources</td>
+                                        <td>{{ item.name}}</td>
+                                        <td>{{item.displayName}} </td>
+                                        <!--<td>{{item.userClaims |showCollection }}</td>-->
+                                        <td>{{item.description}} </td>
+                                        <td>
+                                            <span class="label label-info" v-on:click="ActionClient(1,item.name,2)" v-bind:data-sid="item.rID">编辑</span> &nbsp;&nbsp;
+                                            <span class="label label-info" v-on:click="ActionClient(2,item.name,2)" v-bind:data-sid="item.rID">删除</span>
+                                        </td>
+                                    </tr>
+                                    <tr v-for="item in ApiResourcesData">
+                                        <td>ApiResources</td>
+                                        <td>{{ item.name}}</td>
+                                        <td>{{item.displayName}} </td>
+                                        <!--<td>{{item.userClaims |showCollection }}</td>-->
+                                        <td>{{item.description}} </td>
+                                        <td>
+                                            <span class="label label-info" v-on:click="ActionClient(1,item.name,1)" v-bind:data-sid="item.rID">编辑</span>&nbsp;&nbsp;
+                                            <span class="label label-info" v-on:click="ActionClient(2,item.name,1)" v-bind:data-sid="item.rID">删除</span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+      
+
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">{{ActionTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-horizontal" style="border:1px solid #ffffff;">
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">资源名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" v-model="action_Name" class="form-control input-lg" id="action_Name" name="action_Name" placeholder="资源名称，必须唯一，不可修改" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">资源显示名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" v-model="action_DisplayName" id="action_DisplayName" class="form-control input-lg" name="action_DisplayName" placeholder="资源别称，可以修改" />
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">资源标记</label>
+                                <div class="col-sm-9">
+                                    <input type="text" v-model="action_UserClaims" id="action_UserClaims" class="form-control input-lg" name="action_UserClaims"
+                                           placeholder="资源标记，多个用英文逗号分隔" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">描述</label>
+                                <div class="col-sm-9">
+                                    <input type="text" v-model="action_Description" id="action_Description" class="form-control input-lg" name="action_Description" placeholder="资源的说明描述" />
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" v-on:click="SaveClient"> 保存  </button>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/lib/UnicornAdmin/js/jquery.uniform.js"></script>
+    <script src="~/lib/UnicornAdmin/js/select2.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/unicorn.js"></script>
+    <script src="~/lib/UnicornAdmin/js/unicorn.tables.js"></script>
+    <script src="~/lib/layer/layer.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(function () {
+            $("#PaymentId").select2({
+                placeholder: "--请选择--",
+                dropdownParent: $("#myModal"),
+                allowClear: true
+            });
+
+        });
+        Vue.filter('showCollection', function (value) {
+
+            if (value) {
+                if (value.length >= 1) {
+                    return value.join(',');
+                }
+                return value.toString();
+            }
+        });
+        var pageCount = 0, pageIndex = 0;
+        var app = new Vue({
+            el: '#vueApp',
+            data: {
+                currentBZ: 1,
+                showError: false,
+                ErrorMessage: "",
+                ActionType: 0,//3添加  1修改  2删除
+                pageIndex: 0,
+                pageCount: 0,
+                TotalCount: 0,
+                ListData: [],
+                ActionTitle: "添加客户端",
+                action_Name: "",
+                action_DisplayName: "",
+                action_UserClaims: "",
+                action_Description: "",
+                IdentityResourcesData: [],
+                ApiResourcesData: [],
+                AddResourceType: 0
+            },
+            computed: {
+                validation: function () { }
+            },
+            methods: {
+                InitData: function () {
+                    // layer.open({ type: 2 });
+                    app.GetListData();
+                },
+                GetListData: function (t) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/ResourcesManager?handler=GetAllResources",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("XSRF-TOKEN",
+                                $('input:hidden[name="__RequestVerificationToken"]').val());
+                        },
+                        data: JSON.stringify({
+                            ClientName: "qwe"
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.success) {
+                                app.IdentityResourcesData = result.data.identityResources;
+                                app.ApiResourcesData = result.data.apiResources;
+                                //app.ListData = result.data;
+
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        failure: function (response) {
+                            alert(response);
+                        },
+                        complete: function () {
+
+                        }
+                    });
+
+                },
+                GoLocation: function (url) {
+                    if (url.substr(url.length - 4, 4) != "null") {
+                        console.log(url);
+                        window.location = url;
+                    }
+                },
+                AddClient: function (t) {
+                    app.ActionType = 3;
+                    app.AddResourceType = t;
+                    $("#exampleModal").modal('show');
+                    app.ActionTitle = t == 1 ? "添加Api资源" : "添加Identity资源";
+                    app.action_Name = "";
+                    app.action_DisplayName = "";
+                    app.action_UserClaims = "";
+                    app.action_Description = "";
+                    $("#action_Name").removeAttr("disabled");
+                },
+                ActionClient: function (t, r, c) {
+                    console.log("t=" + t + ", r=" + r);
+                    //t操作类型，1编辑，2删除，r 请求操作的资源名称，c,请求操作的资源类型，1 api资源，2 identity资源
+                    if (t == 1) {
+                        var data = {
+                            Name: "",
+                            IdentityName: "",
+                            action: "GetByName"
+                        };
+                        app.ActionType = t;
+                        if (c == 1) data.Name = r; else if (c == 2) data.IdentityName = r;
+                        app.AddResourceType = c;
+                        $.ajax({
+                            type: "POST",
+                            url: "/ResourcesManager?handler=GetByName",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("XSRF-TOKEN",
+                                    $('input:hidden[name="__RequestVerificationToken"]').val());
+                            },
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.success) {
+                                    //打开model，赋值
+                                    app.ActionTitle = "编辑资源";
+                                    app.action_Name = result.data.name;
+                                    app.action_DisplayName = result.data.displayName;
+                                    app.action_UserClaims = result.data.userClaims == "" ? "" : result.data.userClaims.join(',');
+                                    app.action_Description = result.data.description;
+                                    $("#exampleModal").modal('show');
+                                    $("#action_Name").attr("disabled", "disabled");
+                                } else {
+                                    alert(result.message);
+                                }
+                            },
+                            failure: function (response) {
+                                alert(response);
+                            }
+                        });
+                    } else if (t == 2) {
+
+                        layer.confirm('您确定要修改该用户的“手机号码”吗？', {
+                            btn: ['确定', '取消'] //按钮
+                        }, function () {
+                            app.ActionType = t;
+                            var data = {
+                                Name: c == 1 ? r : "",
+                                IdentityName: c == 2 ? r : "",
+                                action: "del"
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: "/ResourcesManager?handler=ActionClient",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: JSON.stringify(data),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.success) {
+                                        //打开model，赋值
+                                        window.location.reload();
+                                        // $("#exampleModal").modal('hide');
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                }
+                            });
+                        }, function () { });
+                         
+                    }
+
+
+                },
+                SaveClient: function () {
+                    //ActionType ,//3添加  1修改  2删除
+                    //AddResourceType  1 api资源，2identity资源
+                    if (app.ActionType == 1) {
+                        if (app.action_ClientName == "" || app.action_ClientId == "" || app.action_ClientSecrets == ""
+                            || app.action_GrantType == "" || app.action_Scopes == "" || app.action_RedirectUris == ""
+                            || app.action_PostLogoutRedirectUris == "") {
+                            alert("所有文本框都是必填");
+                        } else {
+                            var data = {
+                                Name: app.AddResourceType == 1 ? app.action_Name : "",
+                                DisplayName: app.action_DisplayName,
+                                UserClaims: app.action_UserClaims.split(','),
+                                Description: app.action_Description,
+                                IdentityName: app.AddResourceType == 2 ? app.action_Name : "",
+                                action: "update"
+                            };
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/ResourcesManager?handler=ActionClient",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: JSON.stringify(data),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.success) {
+                                        //打开model，赋值
+                                        window.location.reload();
+                                        // $("#exampleModal").modal('hide');
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                },
+                                complete: function () {
+                                    app.action_Name = "";
+                                    app.action_DisplayName = "";
+                                    app.action_UserClaims = "";
+                                    app.action_Description = "";
+                                    $("#exampleModal").modal('hide');
+                                }
+                            });
+
+                        }
+                    }
+                    if (app.ActionType == 3) {
+                        if (app.action_ClientName == "" || app.action_ClientId == "" || app.action_ClientSecrets == ""
+                            || app.action_GrantType == "" || app.action_Scopes == "" || app.action_RedirectUris == ""
+                            || app.action_PostLogoutRedirectUris == "") {
+                            alert("所有文本框都是必填");
+                        } else {
+
+                            var data = {
+                                Name: app.AddResourceType == 1 ? app.action_Name : "",
+                                DisplayName: app.action_DisplayName,
+                                UserClaims: app.action_UserClaims.split(','),
+                                Description: app.action_Description,
+                                IdentityName: app.AddResourceType == 2 ? app.action_Name : "",
+                                action: "add"
+                            };
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/ResourcesManager?handler=ActionClient",
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                                },
+                                data: JSON.stringify(data),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (result) {
+                                    if (result.success) {
+                                        //打开model，赋值
+                                        window.location.reload();
+                                        // $("#exampleModal").modal('hide');
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response);
+                                },
+                                complete: function () {
+                                    app.action_Name = "";
+                                    app.action_DisplayName = "";
+                                    app.action_UserClaims = "";
+                                    app.action_Description = "";
+                                    $("#exampleModal").modal('hide');
+                                }
+                            });
+
+                        }
+                    }
+
+                }
+            }
+        });
+        app.InitData();
+    </script>
+
+}
+
+

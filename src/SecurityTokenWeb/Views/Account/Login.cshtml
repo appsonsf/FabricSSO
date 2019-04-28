@@ -1,0 +1,30 @@
+﻿@using SecurityTokenWeb.Model
+@model LoginViewModel
+@{
+    ViewData["Titile"] = "登录";
+    Layout = "_NewLayout";
+    var hubsScriptUri = ViewBag.ScanLoginServiceUri + "/signalr/hubs";
+}
+@{
+    if (Model.EnableLocalLogin)
+    {
+        <!--账号登录-->
+        @await Html.PartialAsync("Partial/AccountLogin", Model)
+
+        <!--手机登录-->
+        @await Html.PartialAsync("Partial/QrLogin", Model)
+
+        <!--手机短信登录-->
+        @await Html.PartialAsync("Partial/MobileSmsLogin", Model)
+
+    }
+    else
+    {
+        <strong>无效请求！</strong>
+    }
+}
+
+<script src="@Html.GenerateStaticUrl("/lib/qrcode.min.js")"></script>
+<script src="https://cdn.staticfile.org/signalr.js/2.4.0/jquery.signalR.min.js"></script>
+<script src="@hubsScriptUri"></script>
+<script src="@Html.GenerateStaticUrl("/js/login.js")"></script>

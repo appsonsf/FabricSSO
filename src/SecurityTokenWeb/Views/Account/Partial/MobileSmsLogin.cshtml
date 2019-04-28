@@ -1,0 +1,31 @@
+﻿@model LoginViewModel
+<div class="login-form sms-login" style="display: none">
+
+    <form asp-route="login" asp-fragment="sms">
+        <input type="hidden" asp-for="ReturnUrl" id="a3" />
+        <input type="hidden" asp-for="LoginType" id="a4" value="2" />
+
+        <div class="title"><strong class="title">登录</strong><span>LOGIN</span></div>
+        <div class="input">
+            <i class="material-icons">person_outline</i>
+            <input type="text" class="form-control" placeholder="手机号" id="phone_username" asp-for="Username" autofocus>
+        </div>
+
+        <div class="input">
+            <i class="material-icons">lock_open</i>
+            <input type="password" class="form-control validatecode" placeholder="验证码" id="phone_password" asp-for="Password" autocomplete="off">
+            &nbsp;
+            <button class="btn btn-primary btn-sendCode">发送验证码</button>
+        </div>
+        <div>
+            <strong id="smserror"></strong>
+        </div>
+        @await Html.PartialAsync("Partial/ValidationSummary", Model)
+        <button type="submit" value="login" name="button" class="btn btn-primary btn-block">登录</button>
+    </form>
+    <div class="other-login">
+        <a href="#account" id="account-login" logintype="account"><i class="material-icons">lock_open</i>账号登录</a>
+        <br />
+        <a href="#qr" logintype="qr"><i class="material-icons">lock_open</i>二维码登录</a>
+    </div>
+</div>

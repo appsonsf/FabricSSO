@@ -1,0 +1,24 @@
+﻿@model Sso.Remoting.Models.UserItemDto
+@{
+    Layout = "~/Views/Layout.cshtml";
+    ViewData["Title"] = "个人登录信息";
+}
+
+<div class=" col-md-12 col-sm-12">
+    <div role="tabpanel" class="tab-pane active" id="_register">
+        <div class="box">
+            <h3 class="title">单点登录个人信息一览</h3>
+            <div class="form">
+                <blockquote>
+                    <h4>
+                        <span class="label label-primary">UserId</span>：<span class="text-center">@Model.Id.ToString()</span><br /><br />
+                        <span class="label label-primary">用户名</span>：<span class="text-center">@Model.Username</span><br /><br />
+                        <span class="label label-primary">姓名</span>：<span class="text-center">@Model.Name</span><br /><br />
+                        <span class="label label-primary">身份证号码</span>：<span class="text-center">@Model.IdCardNo</span><br /><br />
+                        <span class="label label-primary">手机号码</span>：<span class="text-center">@Model.Mobile</span><br /><br />
+                    </h4>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>

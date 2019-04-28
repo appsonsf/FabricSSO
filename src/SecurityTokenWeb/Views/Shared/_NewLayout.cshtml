@@ -1,0 +1,33 @@
+﻿@using SecurityTokenWeb.Model
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Titile"] - FabricSSO Demo 单点登录平台</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.staticfile.org/font-awesome/5.3.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="@Html.GenerateStaticUrl("/css/MaterialIcons.css")">
+    <link rel="stylesheet" type="text/css" href="@Html.GenerateStaticUrl("/css/login-main.css")">
+    <link rel="stylesheet" type="text/css" href="@Html.GenerateStaticUrl("/css/login.css")">
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="login">
+    <div class="login-image">
+        <img src="@Html.GenerateStaticUrl("/images/login_bg.png")" width="100%" height="100%">
+    </div>
+
+    <div class="login-right">
+        <h1 class="logo">
+            <img src="/Images/logo.png" width="40">
+        </h1>
+        @RenderBody()
+    </div>
+</div>
+</body>
+</html>

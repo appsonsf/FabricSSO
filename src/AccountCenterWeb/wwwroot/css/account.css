@@ -1,0 +1,273 @@
+body {
+    background: url(/images/bg.jpg) no-repeat;
+    background-size: 100% 100%;
+    overflow-y: auto;
+}
+
+/*account ===================================================*/
+.account-header {
+    padding: 15px 15px;
+    height: 50px;
+    background: #1254a6;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+}
+
+    .account-header .logo {
+        float: left;
+        display: block;
+        font-size: 0px;
+        height: 20px;
+        margin-right: 10px;
+        padding: 0px;
+    }
+
+    .account-header .system-name {
+        float: left;
+        color: #fff;
+        display: inline-block;
+        border-left: solid 1px rgba(255,255,255,0.2);
+        padding-left: 15px;
+        margin-left: 5px;
+    }
+
+        .account-header .system-name strong {
+            display: block;
+        }
+
+        .account-header .system-name span {
+            font-size: 12px;
+        }
+
+    .account-header .user {
+        float: right;
+        color: #fff;
+        margin-top: -15px;
+        margin-right: -15px;
+        height: 50px;
+        padding: 8px 15px;
+    }
+
+        .account-header .user > a {
+            color: #fff;
+        }
+
+        .account-header .user .user-photo {
+            vertical-align: middle;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: url(~/images/user-photo.png) no-repeat;
+            background-size: 100%;
+            border-radius: 30px;
+            margin-right: 8px;
+            overflow: hidden;
+        }
+
+        .account-header .user .user-name {
+            vertical-align: middle;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .account-header .user .user-department {
+            display: block;
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        .account-header .user .caret {
+            margin-left: 10px;
+        }
+
+        .account-header .user:hover {
+            background: rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .account-header .user .dropdown-menu {
+            right: 0px;
+            left: auto;
+            border: solid 1px #ddd;
+        }
+
+            .account-header .user .dropdown-menu li a {
+                padding: 10px 15px;
+                color: #005bac;
+                font-size: 12px;
+            }
+
+                .account-header .user .dropdown-menu li a i {
+                    margin-right: 10px;
+                }
+
+
+.account-tabs .nav-tabs {
+    background: #fff;
+    box-shadow: 0px 3px 30px rgba(0,0,0,0.1);
+    padding: 0px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+    .account-tabs .nav-tabs li {
+        float: none;
+        position: relative;
+    }
+
+    .account-tabs .nav-tabs > li > a {
+        display: block;
+        padding: 20px 20px 20px 80px;
+        margin: 0px;
+        border: none;
+        border-bottom: solid 1px #eee;
+        border-radius: 0px;
+    }
+
+        .account-tabs .nav-tabs > li > a:hover {
+            background: #f5f5f5;
+        }
+
+        .account-tabs .nav-tabs > li > a i {
+            position: absolute;
+            top: 22px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: #e5eef7;
+            color: #005bac;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 30px;
+            font-size: 16px;
+        }
+
+        .account-tabs .nav-tabs > li > a strong {
+            font-size: 16px;
+            font-weight: normal;
+            display: block;
+            color: #005bac;
+            margin-bottom: 5px;
+        }
+
+        .account-tabs .nav-tabs > li > a span {
+            color: #888;
+        }
+
+    .account-tabs .nav-tabs > li.active > a {
+        background: #f08300;
+        color: #fff;
+    }
+
+        .account-tabs .nav-tabs > li.active > a:hover {
+            border: none;
+            border-bottom: solid 1px #ddd;
+        }
+
+        .account-tabs .nav-tabs > li.active > a i {
+            color: #fff;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .account-tabs .nav-tabs > li.active > a strong {
+            color: #fff;
+        }
+
+        .account-tabs .nav-tabs > li.active > a span {
+            color: #fff;
+        }
+
+.account-tabs {
+    margin-top: 30px;
+}
+
+    .account-tabs .tab-pane .box {
+        background: #fff;
+        padding: 15px 30px;
+        box-shadow: 0px 3px 30px rgba(0,0,0,0.1);
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+
+    .account-tabs .tab-pane .title {
+        font-size: 18px;
+        color: #005bac;
+        font-weight: normal;
+        padding: 15px 0px;
+        border-bottom: solid 1px #eee;
+    }
+
+    .account-tabs .tab-pane .form {
+        padding: 20px 20px;
+    }
+
+        .account-tabs .tab-pane .form .form-group {
+            margin: 15px 0px;
+        }
+
+            .account-tabs .tab-pane .form .form-group .control-label {
+                line-height: 30px;
+                font-size: 14px;
+                color: #555;
+                font-weight: normal;
+            }
+
+            .account-tabs .tab-pane .form .form-group .remarks {
+                font-size: 12px;
+                line-height: 30px;
+                color: #888;
+            }
+
+    .account-tabs .tab-pane input[type="text"]:focus {
+        border-color: #0a57a9;
+        color: #0a57a9;
+    }
+
+    .account-tabs .tab-pane .pane-footer {
+        border-top: solid 1px #eee;
+        padding: 15px 0px;
+        text-align: right;
+    }
+
+        .account-tabs .tab-pane .pane-footer .btn {
+            min-width: 80px;
+        }
+
+    .account-tabs .tab-pane .error .control-label, .account-tabs .tab-pane .error .remarks {
+        color: #ca3d3d !important;
+    }
+
+    .account-tabs .tab-pane .error input[type="text"] {
+        border-color: #ca3d3d !important;
+        color: #ca3d3d !important;
+    }
+
+.footer {
+    height: 100px;
+    width: 100%;
+}
+
+    .footer .container {
+        text-align: center;
+        padding-top: 40px;
+    }
+
+.customerIcon {
+    border: solid 2px #005bac;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 24px;
+    padding-top: 15px;
+    color: #005bac;
+    display: block;
+    margin: 10px auto 15px;
+}
+.customFont {
+    font-size: 16px;
+    color: #005bac;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}

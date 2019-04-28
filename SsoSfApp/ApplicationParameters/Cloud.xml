@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/Sso" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="ScanLoginService_InstanceCount" Value="-1" />
+    <Parameter Name="ConfigService_InstanceCount" Value="2" />
+    <Parameter Name="SecurityTokenWeb_InstanceCount" Value="-1" />
+    <Parameter Name="ManageConsoleWeb_InstanceCount" Value="-1" />
+    <Parameter Name="AccountCenterWeb_InstanceCount" Value="-1" />
+    <Parameter Name="ProfileStateService_PartitionCount" Value="6" />
+    <Parameter Name="ProfileStateService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="ProfileStateService_TargetReplicaSetSize" Value="3" />
+
+    <Parameter Name="RabbitMQ_HostAddress" Value="rabbitmq://rabbitmq.common/" />
+    <Parameter Name="RabbitMQ_Username" Value="#{RabbitMQ_Username}#" />
+    <Parameter Name="RabbitMQ_Password" Value="#{RabbitMQ_Password}#" />
+    <Parameter Name="RabbitMQ_mdm_HostAddress" Value="rabbitmq://rabbitmq.common/mdm" />
+    <Parameter Name="RabbitMQ_mdm_Username" Value="mdm" />
+    <Parameter Name="RabbitMQ_mdm_Password" Value="#{RabbitMQ_mdm_Password}#" />
+    <Parameter Name="RabbitMQ_sso2mdm_HostAddress" Value="rabbitmq://rabbitmq.common/sso2mdm" />
+    <Parameter Name="RabbitMQ_sso2mdm_Username" Value="sso2mdm" />
+    <Parameter Name="RabbitMQ_sso2mdm_Password" Value="#{RabbitMQ_sso2mdm_Password}#" />
+    <Parameter Name="ConfigDb_ConnectionString" Value="#{ConfigDb_ConnectionString}#" />
+    <Parameter Name="IdSvr_IssuerUri" Value="https://ssodemo-login.zyg.cloud" />
+    <Parameter Name="IdSvr_RequireHttps" Value="true" />
+    <Parameter Name="IdSvr_ScanLoginServiceUri" Value="https://ssodemo-sls.zyg.cloud" />
+    <Parameter Name="RedisHost" Value="redis.common:6379" />
+    <Parameter Name="MC_HangfireDb_ConnectionString" Value="#{MC_HangfireDb_ConnectionString}#"/>
+    <Parameter Name="Minio_Endpoint" Value="minio.common:9000" />
+    <Parameter Name="Minio_AccessKey" Value="#{Minio_AccessKey}#" />
+    <Parameter Name="Minio_SecretKey" Value="#{Minio_SecretKey}#" />
+    <Parameter Name="Diagnostics_ElasticsearchHost" Value="http://elasticsearch.common:9200" />
+    <Parameter Name="RSAKey" Value="#{RSAKey}#" />
+    <Parameter Name="General_StaticFileSiteHost_AccountCenter" Value="http://localhost:10101" />
+    <Parameter Name="General_StaticFileSiteHost_SecurityToken" Value="http://localhost:10103" />
+  </Parameters>
+</Application>

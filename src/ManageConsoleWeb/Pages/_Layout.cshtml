@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SSO管理后台</title>
+
+
+
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/UnicornAdmin/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/UnicornAdmin/css/font-awesome.css" />
+
+    <link rel="stylesheet" href="~/lib/UnicornAdmin/css/jquery.jscrollpane.css" />
+    <link href="~/lib/UnicornAdmin/css/select2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/UnicornAdmin/css/unicorn.css" />
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="~/lib/UnicornAdmin/js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @*<environment include="Development">
+        </environment>
+        <environment exclude="Development">
+        </environment>*@
+</head>
+<body data-color="grey" class="flat">
+    <div id="wrapper">
+        <div id="header">
+            <h1><a href="/">FabricSSO Demo </a></h1>
+            <a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <div id="user-nav">
+            <ul class="btn-group">
+                <!--
+                 <li class="btn"><a title="" href="#"><i class="fa fa-user"></i> <span class="text">Profile</span></a></li>
+                 <li class="btn dropdown" id="menu-messages">
+                     <a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="fa fa-envelope"></i> <span class="text">Messages</span> <span class="label label-danger">5</span> <b class="caret"></b></a>
+                     <ul class="dropdown-menu messages-menu">
+                         <li class="title"><i class="fa fa-envelope-alt"></i>Messages<a class="title-btn" href="#" title="Write new message"><i class="fa fa-share"></i></a></li>
+                         <li class="message-item">
+                             <a href="#">
+                                 <img alt="User Icon" src="~/images/av1.jpg" />
+                                 <div class="message-content">
+                                     <span class="message-time">
+                                         3 mins ago
+                                     </span>
+                                     <span class="message-sender">
+                                         Nunc Cenenatis
+                                     </span>
+                                     <span class="message">
+                                         Hi, can you meet me at the office tomorrow morning?
+                                     </span>
+                                 </div>
+                             </a>
+                         </li>
+                         <li class="message-item">
+                             <a href="#">
+                                 <img alt="User Icon" src="~/images/av1.jpg" />
+                                 <div class="message-content">
+                                     <span class="message-time">
+                                         3 mins ago
+                                     </span>
+                                     <span class="message-sender">
+                                         Nunc Cenenatis
+                                     </span>
+                                     <span class="message">
+                                         Hi, can you meet me at the office tomorrow morning?
+                                     </span>
+                                 </div>
+                             </a>
+                         </li>
+                         <li class="message-item">
+                             <a href="#">
+                                 <img alt="User Icon" src="~/images/av1.jpg" />
+                                 <div class="message-content">
+                                     <span class="message-time">
+                                         3 mins ago
+                                     </span>
+                                     <span class="message-sender">
+                                         Nunc Cenenatis
+                                     </span>
+                                     <span class="message">
+                                         Hi, can you meet me at the office tomorrow morning?
+                                     </span>
+                                 </div>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+                 <li class="btn"><a title="" href="#"><i class="fa fa-cog"></i> <span class="text">Settings</span></a></li>
+                -->
+                <li class="btn"><a title="" href="#" onclick="LogOut()"><i class="fa fa-share"></i> <span class="text">退出</span></a></li>
+            </ul>
+        </div>
+
+        <div id="switcher">
+            <div id="switcher-inner">
+                <h3>Theme Options</h3>
+                <h4>Colors</h4>
+                <p id="color-style">
+                    <a data-color="orange" title="Orange" class="button-square orange-switcher" href="#"></a>
+                    <a data-color="turquoise" title="Turquoise" class="button-square turquoise-switcher" href="#"></a>
+                    <a data-color="blue" title="Blue" class="button-square blue-switcher" href="#"></a>
+                    <a data-color="green" title="Green" class="button-square green-switcher" href="#"></a>
+                    <a data-color="red" title="Red" class="button-square red-switcher" href="#"></a>
+                    <a data-color="purple" title="Purple" class="button-square purple-switcher" href="#"></a>
+                    <a href="#" data-color="grey" title="Grey" class="button-square grey-switcher"></a>
+                </p>
+
+                <h4 class="visible-lg">Layout Type</h4>
+                <p id="layout-type">
+                    <a data-option="flat" class="button" href="#">Flat</a>
+                    <a data-option="old" class="button" href="#">Old</a>
+                </p>
+            </div>
+            <div id="switcher-button">
+                <i class="fa fa-cogs"></i>
+            </div>
+        </div>
+        <div id="sidebar">
+            <div id="search">
+                <input type="text" placeholder="Search here..." /><button type="submit" class="tip-right" title="Search"><i class="fa fa-search"></i></button>
+            </div>
+            <ul>
+                <li class="active"><a href="/"><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li><a href="/ClientManager"><i class="fa fa-th"></i> <span>客户端管理</span></a></li>
+                <li><a href="/ResourcesManager"><i class="fa fa-th-list"></i> <span>资源管理</span></a></li>
+                <li><a href="/UserManagers"><i class="fa fa-th-list"></i> <span>用户管理</span></a></li>
+                <li><a href="/reactRoleManager"><i class="fa fa-th-list"></i> <span>系统角色管理</span></a></li>
+                <li><a href="/ReactRoleUsersManage"><i class="fa fa-th-list"></i> <span>用户角色管理</span></a></li>
+                <!--
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-flask"></i> <span>UI Lab</span> <i class="arrow fa fa-chevron-right"></i></a>
+                    <ul>
+                        <li><a href="interface.html">Interface Elements</a></li>
+                        <li><a href="jquery-ui.html">jQuery UI</a></li>
+                        <li><a href="buttons.html">Buttons &amp; icons</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-th-list"></i> <span>Form elements</span> <i class="arrow fa fa-chevron-right"></i></a>
+                    <ul>
+                        <li><a href="form-common.html">Common elements</a></li>
+                        <li><a href="form-validation.html">Validation</a></li>
+                        <li><a href="form-wizard.html">Wizard</a></li>
+                    </ul>
+                </li>
+
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-file"></i> <span>Sample pages</span> <i class="arrow fa fa-chevron-right"></i></a>
+                    <ul>
+                        <li><a href="invoice.html">Invoice</a></li>
+                        <li><a href="chat.html">Support chat</a></li>
+                        <li><a href="calendar.html">Calendar</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="messages.html">Messages</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="charts.html"><i class="fa fa-signal"></i> <span>Charts &amp; graphs</span></a>
+                </li>
+                <li>
+                    <a href="widgets.html"><i class="fa fa-inbox"></i> <span>Widgets</span></a>
+                </li>
+                -->
+            </ul>
+
+        </div>
+        @RenderBody()
+
+
+        <div class="row">
+            <div id="footer" class="col-xs-12">
+                @DateTime.Now.Year &copy; FabricSSO Demo
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="~/lib/UnicornAdmin/js/excanvas.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/jquery.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/jquery-ui.custom.js"></script>
+    <script src="~/lib/UnicornAdmin/js/bootstrap.min.js"></script>
+    <!--    <script src="~/lib/UnicornAdmin/js/jquery.flot.min.js"></script>-->
+    <script src="~/lib/UnicornAdmin/js/jquery.flot.resize.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/jquery.sparkline.min.js"></script>
+    @*<script src="~/lib/UnicornAdmin/js/fullcalendar.min.js"></script>*@
+
+    <script src="~/lib/UnicornAdmin/js/jquery.nicescroll.min.js"></script>
+    <script src="~/lib/UnicornAdmin/js/unicorn.js"></script>
+    <script src="~/lib/UnicornAdmin/js/unicorn.dashboard.js"></script>
+
+
+
+    <script src="~/lib/Vue/dist/vue.min.js"></script>
+    @*<environment include="Development">
+
+
+        </environment>
+        <environment exclude="Development">
+
+
+        </environment>*@
+
+    @RenderSection("Scripts", required: false)
+    <form></form>
+    <script>
+        function LogOut() {
+            $.ajax({
+                type: "POST",
+                url: "/ClientManager?handler=LogOut",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                }, 
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result.success) {
+                        window.location.href = "/";
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                failure: function (response) {
+                    alert(response);
+                },
+                complete: function () {
+
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

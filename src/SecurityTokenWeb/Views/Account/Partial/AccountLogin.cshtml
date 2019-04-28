@@ -1,0 +1,33 @@
+﻿@model LoginViewModel
+
+
+<div class="login-form account-login">
+    <form asp-route="login" asp-fragment="account">
+        <input type="hidden" asp-for="ReturnUrl" id="a1" />
+        <input type="hidden" asp-for="LoginType" id="a2" value="1" />
+        <div class="title"><strong class="title">登录</strong><span>LOGIN</span></div>
+        <div class="input">
+            <i class="material-icons">person_outline</i>
+            <input type="text" class="form-control" placeholder="用户名/员工编码" id="account_username" asp-for="Username" autofocus>
+        </div>
+        <div class="input">
+            <i class="material-icons">lock_open</i>
+            <input type="password" class="form-control" placeholder="密码" id="account_password" asp-for="Password" autocomplete="off">
+        </div>
+        <div class="clearfix">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" asp-for="RememberLogin" checked="checked"> 记住密码
+                </label>
+            </div>
+            <a href="#" class="forget">忘记密码？</a>
+        </div>
+        @await Html.PartialAsync("Partial/ValidationSummary", Model)
+        <button type="submit" value="login" name="button" class="btn btn-primary btn-block">登录</button>
+    </form>
+    <div class="other-login">
+        <a href="#qr" logintype="qr"><i class="material-icons">stay_current_portrait</i>二维码登录</a>
+        <br />
+        <a href="#sms" logintype="sms"><i class="material-icons">stay_current_portrait</i>手机短信登录</a>
+    </div>
+</div>

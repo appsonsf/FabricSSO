@@ -1,0 +1,21 @@
+﻿@using SecurityTokenWeb.Model
+@model LoggedOutViewModel
+@{
+    Layout = "_NewLayout";
+    ViewData["Titile"] = "登出";
+}
+<!--注销登录-->
+<div class="login-form logout">
+    <h1>登出</h1>
+    <p>您现在已经注销单点登录!</p>
+    @{
+        if (Model.PostLogoutRedirectUri != null)
+        {
+            <a class="btn btn-primary" style="padding: 8px 30px; font-size: 12px;" href="@Model.PostLogoutRedirectUri">返回 @Model.ClientName</a>
+        }
+    }
+
+    @*<div class="other-login" style="margin-top: 100px;">
+            <a href="#"><i class="material-icons">lock_open</i>重新登录</a>
+        </div>*@
+</div>

@@ -1,0 +1,27 @@
+﻿@using IdentityServer4.Extensions
+@model GrantsViewModel
+@{
+    ViewData["Titile"] = "您已成功登录";
+    Layout = "_NewLayout";
+
+    string name = null;
+    if (!true.Equals(ViewData["signed-out"]))
+    {
+        name = Context.User?.GetDisplayName();
+    }
+}
+<div class="login-form account-login">
+    <div class="alert alert-info" role="alert">
+        <a href="#" class="alert-link">尊敬的用户:@name,您好,您已经登录成功!</a>
+    </div>
+
+    您可以点击下面链接来管理您的账号：
+
+    <div class="input">
+        <a href="/ModifyPassword" class="btn btn-info btn-lg btn-block">修改密码</a>
+        <a href="/ModifyMobile" class="btn btn-info btn-lg btn-block">修改手机号码</a>
+        <a href="/ReName" class="btn btn-info btn-lg btn-block">修改用户名</a>
+    </div>
+</div>
+
+
