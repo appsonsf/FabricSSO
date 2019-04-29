@@ -28,12 +28,12 @@
     <None Include="Scripts\Deploy-FabricApplication.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AccountCenterWeb\AccountCenterWeb.csproj" />
-    <ProjectReference Include="..\ConfigService\ConfigService.csproj" />
-    <ProjectReference Include="..\ManageConsoleWeb\ManageConsoleWeb.csproj" />
-    <ProjectReference Include="..\ProfileStateService\ProfileStateService.csproj" />
-    <ProjectReference Include="..\ScanLoginService\ScanLoginService.csproj" />
-    <ProjectReference Include="..\SecurityTokenWeb\SecurityTokenWeb.csproj" />
+    <ProjectReference Include="..\src\AccountCenterWeb\AccountCenterWeb.csproj" />
+    <ProjectReference Include="..\src\ConfigService\ConfigService.csproj" />
+    <ProjectReference Include="..\src\ManageConsoleWeb\ManageConsoleWeb.csproj" />
+    <ProjectReference Include="..\src\ProfileStateService\ProfileStateService.csproj" />
+    <ProjectReference Include="..\src\ScanLoginService\ScanLoginService.csproj" />
+    <ProjectReference Include="..\src\SecurityTokenWeb\SecurityTokenWeb.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationParameters\Cloud.xml" />

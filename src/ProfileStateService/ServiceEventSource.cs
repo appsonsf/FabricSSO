@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace ProfileStateService
 {
-    [EventSource(Name = "Mcs-SsoApp-ProfileStateService")]
+    [EventSource(Name = "SsoApp-ProfileStateService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

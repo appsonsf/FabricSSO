@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace SecurityTokenWeb
 {
-    [EventSource(Name = "Mcs-SsoApp-SecurityTokenWeb")]
+    [EventSource(Name = "SsoApp-SecurityTokenWeb")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

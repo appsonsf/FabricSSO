@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace ScanLoginService
 {
-    [EventSource(Name = "Mcs-SsoApp-ScanLoginService")]
+    [EventSource(Name = "SsoApp-ScanLoginService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace ManageConsoleWeb
 {
-    [EventSource(Name = "Mcs-SsoApp-ManageConsoleWeb")]
+    [EventSource(Name = "SsoApp-ManageConsoleWeb")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

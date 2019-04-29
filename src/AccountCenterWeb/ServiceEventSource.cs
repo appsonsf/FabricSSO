@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace AccountCenterWeb
 {
-    [EventSource(Name = "Mcs-SsoApp-AccountCenterWeb")]
+    [EventSource(Name = "SsoApp-AccountCenterWeb")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

@@ -9,7 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace ConfigService
 {
-    [EventSource(Name = "Mcs-SsoApp-ConfigService")]
+    [EventSource(Name = "SsoApp-ConfigService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
