@@ -63,7 +63,7 @@ namespace ManageConsoleWeb
             {
                 cfg.ReceiveEndpoint(host, "OM.Sso.ManageConsole", c =>
                 {
-                    c.Consumer(() => new OrgDataEvenConsumer(new UserAppServiceClient(new RemotingClient())));
+                    c.Consumer(() => new OrgDataEvenConsumer(UserAppServiceClient.Create()));
                 });
             });
 

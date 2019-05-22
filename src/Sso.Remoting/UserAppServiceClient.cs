@@ -11,16 +11,24 @@ using Serilog;
 using Sso.Remoting.ClientParam;
 using Sso.Remoting.Domains;
 using Sso.Remoting.Utilities;
+using AppsOnSF.Common.BaseServices;
 
 namespace Sso.Remoting
 {
     public class UserAppServiceClient : IUserAppServiceClient
     {
         private readonly IRemotingClient _remotingClient;
+        private readonly ISimpleKeyValueService _simpleKeyValueService;
 
-        public UserAppServiceClient(IRemotingClient remotingClient)
+        public UserAppServiceClient(IRemotingClient remotingClient, ISimpleKeyValueService simpleKeyValueService)
         {
             _remotingClient = remotingClient;
+            _simpleKeyValueService = simpleKeyValueService;
+        }
+
+        public static UserAppServiceClient Create()
+        {
+            return new UserAppServiceClient(new RemotingClient(), RemotingProxyFactory.CreateSimpleKeyValueService());
         }
 
         public async Task<(UserItemDto, IUserAppService)> FindByIdCardNoAsync(string idCardNo)
@@ -186,9 +194,23 @@ namespace Sso.Remoting
             try
             {
                 if (dto.Id == null) dto.Id = new ItemId();
+                dto.Username = dto.Username.ToLower();
+
+                var distrLock = await _simpleKeyValueService.CheckAndGet(Constants.SimpleKeyValueServiceContainerName_UserCreatingLock,
+                     dto.Username, TimeSpan.FromSeconds(5));
+                if (distrLock != null) return null;
+
+                await _simpleKeyValueService.AddOrUpdate(Constants.SimpleKeyValueServiceContainerName_UserCreatingLock,
+                      dto.Username, dto.Id.ToString());
+
                 var appService = _remotingClient.CreateUserAppService(dto.Id);
                 if (!byImport)
-                    return await appService.CreateUserAsync(dto);
+                {
+                    var result = await appService.CreateUserAsync(dto);
+                    await _simpleKeyValueService.Remove(Constants.SimpleKeyValueServiceContainerName_UserCreatingLock,
+                        dto.Username);
+                    return result;
+                }
                 return await appService.CreateUserByImportAsync(dto);
             }
             catch (Exception ex)

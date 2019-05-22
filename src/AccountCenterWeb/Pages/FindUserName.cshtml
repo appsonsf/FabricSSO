@@ -97,7 +97,7 @@
                     }
                 </div>
                 <div class="pane-footer">
-                    <input type="submit" asp-page-handler="FindByIdCardNo" class="submit btn btn-primary" />
+                    <input type="submit" asp-page-handler="FindByIdCardNo" class="submit btn btn-primary" onclick="this.disabled=true; this.value='提交中...'; this.form.submit();" value="提交"/>
                 </div>
             </div>
         </form>
@@ -134,7 +134,7 @@
                     }
                 </div>
                 <div class="pane-footer">
-                    <input type="submit" disabled="disabled" asp-page-handler="FindByMobileCode" class="submit btn btn-primary" />
+                    <input type="submit" disabled="disabled" asp-page-handler="FindByMobileCode" class="submit btn btn-primary" onclick="this.disabled=true; this.value='提交中...'; this.form.submit();" value="提交"/>
                 </div>
             </div>
         </form>

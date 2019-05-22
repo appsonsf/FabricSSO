@@ -50,13 +50,15 @@ namespace ProfileStateService
 
         public async Task<UserItemDto> FindByUsernameAsync(string userName, CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrEmpty(userName))
+                return null;
             var users = await _stateManager.GetOrAddAsync<IReliableDictionary<ItemId, UserItem>>(DictionaryName);
             using (var tx = _stateManager.CreateTransaction())
             {
                 var enumerator = (await users.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
                 while (await enumerator.MoveNextAsync(ct))
                 {
-                    if (enumerator.Current.Value.Username == userName)
+                    if (string.Equals(enumerator.Current.Value.Username, userName, StringComparison.OrdinalIgnoreCase))
                     {
                         return _mapper.Map<UserItemDto>(enumerator.Current.Value);
                     }
@@ -67,13 +69,16 @@ namespace ProfileStateService
 
         public async Task<UserItemDto> FindByUsernameOrEmployeeNumberAsync(string userNameNumber, CancellationToken ct = default(CancellationToken))
         {
+            if (string.IsNullOrEmpty(userNameNumber))
+                return null;
             var users = await _stateManager.GetOrAddAsync<IReliableDictionary<ItemId, UserItem>>(DictionaryName);
             using (var tx = _stateManager.CreateTransaction())
             {
                 var enumerator = (await users.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
                 while (await enumerator.MoveNextAsync(ct))
                 {
-                    if (enumerator.Current.Value.Username == userNameNumber || enumerator.Current.Value.EmployeeNumber == userNameNumber)
+                    if (string.Equals(enumerator.Current.Value.Username, userNameNumber, StringComparison.OrdinalIgnoreCase) 
+                        || enumerator.Current.Value.EmployeeNumber == userNameNumber)
                     {
                         return _mapper.Map<UserItemDto>(enumerator.Current.Value);
                     }

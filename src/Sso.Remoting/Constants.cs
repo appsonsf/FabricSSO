@@ -26,6 +26,8 @@ namespace Sso.Remoting
 
         public const string ScanLoginServiceName = "ScanLoginService";
         public const string ListenerName_ScanLoginNotifyAppService = "ScanLoginNotifyAppService";
+
+        public const string SimpleKeyValueServiceContainerName_UserCreatingLock = "Sso.Lock.UserCreatingLock";
     }
 
     public static class CacheKeyConstants
