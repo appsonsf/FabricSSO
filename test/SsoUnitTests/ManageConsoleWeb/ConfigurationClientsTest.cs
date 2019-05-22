@@ -10,7 +10,7 @@ namespace SsoUnitTests.ManageConsoleWeb
         [TestMethod]
         public void TestGet()
         {
-            var lst = Clients.Get(true);
+            var lst = Clients.Get();
             Assert.IsTrue(lst.Any());
         }
     }
