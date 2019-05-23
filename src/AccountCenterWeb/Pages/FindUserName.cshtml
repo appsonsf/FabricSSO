@@ -66,13 +66,14 @@
             <button type="button" tag="mobile" hidetag="idcard" class="btn btn-primary btn-lg chk mobilechk">手机+验证码验证</button>
         </p>
 
-        <form method="post" class="idcard">
+        <form method="post" action="/FindUserName?handler=FindByIdCardNo" class="idcard">
             <div class="box">
                 <h3 class="title">找回登录用户名</h3>
                 <div class="form">
                     <div class="form-group row">
                         <label class="col-sm-2 control-label">姓名：</label>
                         <div class="col-sm-7">
+                            @Html.AntiForgeryToken()
                             <input type="text" name="name" class="form-control" placeholder="姓名">
                         </div>
                         <span class="col-sm-3 remarks">请输入姓名</span>
@@ -97,17 +98,18 @@
                     }
                 </div>
                 <div class="pane-footer">
-                    <input type="submit" asp-page-handler="FindByIdCardNo" class="submit btn btn-primary" onclick="this.disabled=true; this.value='提交中...'; this.form.submit();" value="提交"/>
+                    <input type="submit" class="submit btn btn-primary" onclick="this.disabled=true; this.value='提交中...'; this.form.submit();" value="提交" />
                 </div>
             </div>
         </form>
-        <form method="post" class="mobile" style="display: none">
+        <form method="post" action="/FindUserName?handler=FindByMobileCode" class="mobile" style="display: none">
             <div class="box">
                 <h3 class="title">找回登录用户名</h3>
                 <div class="form">
                     <div class="form-group row">
                         <label class="col-sm-2 control-label">手机号码：</label>
                         <div class="col-sm-5">
+                            @Html.AntiForgeryToken()
                             <input type="text" name="mobile" id="mobile" class="form-control" placeholder="手机号码,最好输入您在人力资源预留的手机号码">
                         </div>
                         <div class="col-sm-2">
@@ -134,7 +136,7 @@
                     }
                 </div>
                 <div class="pane-footer">
-                    <input type="submit" disabled="disabled" asp-page-handler="FindByMobileCode" class="submit btn btn-primary" onclick="this.disabled=true; this.value='提交中...'; this.form.submit();" value="提交"/>
+                    <input type="submit" disabled="disabled" class="submit btn btn-primary" onclick="this.disabled=true; this.value='提交中...'; this.form.submit();" value="提交" />
                 </div>
             </div>
         </form>
