@@ -8,6 +8,8 @@ namespace Sso.Remoting.Events
 {
     public interface IMobileCodeSender
     {
-        Task SendAsync(string[] PhoneNumbers, string code);
+        Task<string> SendAsync(string[] phoneNumbers);
+
+        Task<bool> CheckAsync(string phoneNumber, string code);
     }
 }

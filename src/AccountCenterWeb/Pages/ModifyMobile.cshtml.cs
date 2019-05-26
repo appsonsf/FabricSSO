@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Sso.Remoting;
 using Sso.Remoting.Models;
 using static AccountCenterWeb.Model.ErrorMessages;
+using Sso.Remoting.Events;
 
 namespace AccountCenterWeb.Pages
 {
@@ -24,12 +25,12 @@ namespace AccountCenterWeb.Pages
     public class ModifyMobileModel : PageModel
     {
         private readonly IUserAppServiceClient _userAppServiceClient;
-        private readonly ISimpleKeyValueService _simpleKeyValueService;
+        private readonly IMobileCodeSender _mobileCodeSender;
 
-        public ModifyMobileModel(IUserAppServiceClient userAppServiceClient, ISimpleKeyValueService simpleKeyValueService)
+        public ModifyMobileModel(IUserAppServiceClient userAppServiceClient,IMobileCodeSender mobileCodeSender)
         {
             _userAppServiceClient = userAppServiceClient;
-            _simpleKeyValueService = simpleKeyValueService;
+            _mobileCodeSender = mobileCodeSender;
         }
 
         public async Task<IActionResult> OnPostAsync(string mobile, string code)
@@ -45,8 +46,7 @@ namespace AccountCenterWeb.Pages
                 ModelState.AddModelError("", CodeError);
             }
 
-            var storedCode = await this._simpleKeyValueService.Get(MobileCodeContainerEnum.ModifyMobile.ToString(), mobile);
-            if (storedCode != code)
+            if (!await _mobileCodeSender.CheckAsync(mobile,code))
             {
                 ModelState.AddModelError("",CodeError);
                 return Page();

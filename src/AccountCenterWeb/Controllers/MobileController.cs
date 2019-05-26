@@ -8,7 +8,6 @@ using Common.Utilities;
 using MassTransit;
 using AppsOnSF.Common.BaseServices;
 using Microsoft.AspNetCore.Mvc;
-using OM.Base.Csi.Messages;
 using Sso.Remoting;
 using Sso.Remoting.Events;
 
@@ -16,21 +15,17 @@ namespace AccountCenterWeb.Controllers
 {
     public class MobileController : BaseController
     {
-
-        private readonly ISimpleKeyValueService _simpleKeyValueService;
         private readonly IUserAppServiceClient _userAppServiceClient;
         private readonly IMobileCodeSender _mobileCodeSender;
 
-        public MobileController(ISimpleKeyValueService simpleKeyValueService, IUserAppServiceClient userAppServiceClient, IMobileCodeSender mobileCodeSender)
+        public MobileController(IUserAppServiceClient userAppServiceClient, IMobileCodeSender mobileCodeSender)
         {
-
-            _simpleKeyValueService = simpleKeyValueService;
             _userAppServiceClient = userAppServiceClient;
             _mobileCodeSender = mobileCodeSender;
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendCode(string mobile, MobileCodeContainerEnum type)
+        public async Task<IActionResult> SendCode(string mobile, CheckMobileScenario type)
         {
             if (string.IsNullOrWhiteSpace(mobile) || !RegexHelper.VerifyMoblie(mobile))
                 return Json(false, "请输入正确的手机号码!");
@@ -39,22 +34,23 @@ namespace AccountCenterWeb.Controllers
 
             switch (type)
             {
-                case MobileCodeContainerEnum.Register:
-                case MobileCodeContainerEnum.ModifyMobile:
+                case CheckMobileScenario.Register:
+                case CheckMobileScenario.ModifyMobile:
                     if (user != null)
                         return Json(false, string.Format("此手机已被使用!,使用人为{0}", user.Name));
                     break;
-                case MobileCodeContainerEnum.FindUserName:
+                case CheckMobileScenario.FindUserName:
                     if (user == null)
                         return Json(false, "此手机号当前未被已注册用户所使用!");
                     break;
             }
 
-            var code = (new Random().Next(1000, 9999)).ToString();
-            await this._mobileCodeSender.SendAsync(new string[] { mobile }, code);
-            await this._simpleKeyValueService.Remove(type.ToString(), mobile);
-            await this._simpleKeyValueService.Add(type.ToString(), mobile, code);
+            var code = await this._mobileCodeSender.SendAsync(new string[] { mobile });
+#if DEBUG
+            return Json(true, code);
+#else
             return Json(true, "短信发送成功!");
+#endif
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AppsOnSF.Common.BaseServices;
 using Sso.Remoting;
 using Sso.Remoting.Models;
+using Constants = Sso.Remoting.Constants;
 
 namespace SecurityTokenWeb.Services
 {
@@ -48,12 +49,14 @@ namespace SecurityTokenWeb.Services
         /// <returns></returns>
         public async Task<bool> CheckMobileLoginAsync(UserItemDto user, string password)
         {
-            var code = await _simpleKeyValueService.CheckAndGet(StsConstants.MobileLoginCodeContainerName,
+            var code = await _simpleKeyValueService.CheckAndGet(
+                Constants.SimpleKeyValueServiceContainerName_MobileCode,
                 user.Mobile, TimeSpan.FromMinutes(5)); //短信验证码5分钟有效
             if (code != password)
                 return false;
 
-            await _simpleKeyValueService.Remove(StsConstants.MobileLoginCodeContainerName, user.Username);
+            await _simpleKeyValueService.Remove(
+                Constants.SimpleKeyValueServiceContainerName_MobileCode, user.Mobile);
             return true;
         }
 

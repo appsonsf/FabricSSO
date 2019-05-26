@@ -4,26 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MassTransit;
-using OM.Base.Csi.Messages;
+using Base.Csi.Sms.MsgContracts;
+using AppsOnSF.Common.BaseServices;
 
 namespace Sso.Remoting.Events
 {
-    public class MobileCodeSender: IMobileCodeSender
+    public class MobileCodeSender : IMobileCodeSender
     {
         private readonly IBusControl _bus;
+        private readonly ISimpleKeyValueService _simpleKeyValueService;
 
-        public MobileCodeSender(IBusControl bus)
+        public MobileCodeSender(IBusControl bus, ISimpleKeyValueService simpleKeyValueService)
         {
             _bus = bus;
+            _simpleKeyValueService = simpleKeyValueService;
         }
 
-        public async Task SendAsync(string[] PhoneNumbers, string code)
+        public async Task<bool> CheckAsync(string phoneNumber, string code)
         {
+            var original = await _simpleKeyValueService.CheckAndGet(
+                     Constants.SimpleKeyValueServiceContainerName_MobileCode, phoneNumber, TimeSpan.FromMinutes(5));
+            return original == code;
+        }
+
+        public async Task<string> SendAsync(string[] phoneNumbers)
+        {
+            var code = (new Random().Next(1000, 9999)).ToString();
+
+            foreach (var item in phoneNumbers)
+            {
+                await _simpleKeyValueService.AddOrUpdate(
+                    Constants.SimpleKeyValueServiceContainerName_MobileCode, item, code);
+            }
+
             await _bus.Send<SendMobileCodeCommand>(new
             {
-                PhoneNumbers = PhoneNumbers,
+                PhoneNumbers = phoneNumbers,
                 Code = code,
             });
+
+            return code;
         }
     }
 }

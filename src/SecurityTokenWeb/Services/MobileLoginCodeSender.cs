@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Common.Utilities;
 using MassTransit;
 using AppsOnSF.Common.BaseServices;
-using OM.Base.Csi.Messages;
 using Sso.Remoting;
 using Sso.Remoting.Events;
 
@@ -43,9 +42,7 @@ namespace SecurityTokenWeb.Services
             {
                 return "尚未注册的手机号码";
             }
-            var code = (new Random().Next(100000, 999999)).ToString();
-            await this._simpleKeyValueService.AddOrUpdate(StsConstants.MobileLoginCodeContainerName, mobile, code);
-            await this._mobileCodeSender.SendAsync(new[] { mobile }, code);
+            var code = await this._mobileCodeSender.SendAsync(new[] { mobile });
 #if DEBUG
             return code;
 #else

@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
-using OM.Base.Csi.Messages;
+using Base.Csi.Sms.MsgContracts;
+using AppsOnSF.Common.BaseServices;
 
 namespace Sso.Remoting.Events
 {
@@ -13,9 +14,10 @@ namespace Sso.Remoting.Events
     {
         public static IServiceCollection AddMobileCodeSender(this IServiceCollection services, IBusControl bus, string host)
         {
-            services.AddSingleton<IMobileCodeSender>(u => new MobileCodeSender(bus));
+            services.AddSingleton<IMobileCodeSender>(_ => new MobileCodeSender(
+                bus, RemotingProxyFactory.CreateSimpleKeyValueService()));
             EndpointConvention.Map<SendMobileCodeCommand>(
-                new Uri(host + "OM.Base.Csi.SmsService"));
+                new Uri(host + "Base.Csi.SmsService"));
             return services;
         }
     }

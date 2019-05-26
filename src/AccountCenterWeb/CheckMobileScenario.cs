@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AccountCenterWeb
 {
-    public enum MobileCodeContainerEnum
+    public enum CheckMobileScenario
     {
         Register= 1,
         ModifyMobile = 2,

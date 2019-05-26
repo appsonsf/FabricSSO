@@ -7,6 +7,7 @@ using AppsOnSF.Common.BaseServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sso.Remoting;
+using Sso.Remoting.Events;
 using Sso.Remoting.Models;
 using static AccountCenterWeb.Model.ErrorMessages;
 
@@ -15,15 +16,15 @@ namespace AccountCenterWeb.Pages
     public class FindUserNameModel : PageModel
     {
         private readonly IUserAppServiceClient _userAppServiceClient;
-        private readonly ISimpleKeyValueService _simpleKeyValueService;
 
-        public FindUserNameModel(IUserAppServiceClient userAppServiceClient, ISimpleKeyValueService simpleKeyValueService)
+        public FindUserNameModel(IUserAppServiceClient userAppServiceClient, IMobileCodeSender mobileCodeSender)
         {
             _userAppServiceClient = userAppServiceClient;
-            _simpleKeyValueService = simpleKeyValueService;
+            _mobileCodeSender = mobileCodeSender;
         }
 
         public bool FindByMobile = false;
+        private readonly IMobileCodeSender _mobileCodeSender;
 
         public async Task<IActionResult> OnPostFindByIdCardNoAsync(string name, string idcardNo)
         {
@@ -71,8 +72,7 @@ namespace AccountCenterWeb.Pages
                 return Page();
             }
 
-            var storedCode = await this._simpleKeyValueService.Get(MobileCodeContainerEnum.FindUserName.ToString(), mobile);
-            if (storedCode != code)
+            if (!await _mobileCodeSender.CheckAsync(mobile,code))
             {
                 ModelState.AddModelError("", CodeError);
                 return Page();

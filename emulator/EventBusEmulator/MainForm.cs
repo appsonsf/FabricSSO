@@ -44,7 +44,12 @@ namespace EventBusEmulator
                     h.Password(txtPassword.Text);
                 });
 
-                cfg.ReceiveEndpoint(host, "OM.Base.Csi.SmsService", c =>
+                cfg.ReceiveEndpoint(host, "Base.Csi.SmsService", c =>
+                {
+                    c.Consumer(() => new SmsMessageConsumer(this));
+                });
+
+                cfg.ReceiveEndpoint(host, "FabricSSO_EventBusEmulator", c =>
                 {
                     c.Consumer(() => new UserBatchSyncConsumer(this));
                 });
@@ -69,6 +74,11 @@ namespace EventBusEmulator
             //    StartCreated = chkStartTime.Checked ? new DateTimeOffset(dtpStart.Value) : default(DateTimeOffset?),
             //    EndCreated = chkEndTime.Checked ? new DateTimeOffset(dtpEnd.Value) : default(DateTimeOffset?),
             //});
+        }
+
+        private void Btn_AdSend_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

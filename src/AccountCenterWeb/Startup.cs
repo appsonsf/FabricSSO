@@ -16,7 +16,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Client;
-using OM.Base.Csi.Messages;
 using OpenApiClient;
 using OpenApiClient.MdmDataDistribute;
 using ServiceFabricContrib;
@@ -46,6 +45,7 @@ namespace AccountCenterWeb
                .PersistKeysToServiceFabric();
 #endif
             services.AddRemotingService();
+
             //π‹¿ÌhttpClient
             services.AddHttpClient<IContactsClient, ContactsClient>(client =>
             {

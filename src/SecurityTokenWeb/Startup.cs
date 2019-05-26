@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using OM.Base.Csi.Messages;
 using OpenApiClient;
 using OpenApiClient.MdmDataDistribute;
 using SecurityTokenWeb.Extensions;

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OpenApiClient.MdmDataDistribute;
 using Sso.Remoting;
+using Sso.Remoting.Events;
 using Sso.Remoting.Models;
 using System;
 using System.Threading.Tasks;
@@ -13,16 +14,16 @@ namespace AccountCenterWeb.Pages
     public class RegisterModel : PageModel
     {
         private readonly IUserAppServiceClient _userAppServiceClient;
-        private readonly ISimpleKeyValueService _simpleKeyValueService;
         private readonly IContactsClient _contactService;
+        private readonly IMobileCodeSender _mobileCodeSender;
 
         public RegisterModel(IUserAppServiceClient userAppServiceClient,
-            ISimpleKeyValueService simpleKeyValueService,
+            IMobileCodeSender mobileCodeSender,
             IContactsClient contactService)
         {
             _userAppServiceClient = userAppServiceClient;
-            _simpleKeyValueService = simpleKeyValueService;
             _contactService = contactService;
+            _mobileCodeSender = mobileCodeSender;
         }
 
         [BindProperty]
@@ -77,8 +78,7 @@ namespace AccountCenterWeb.Pages
                 return Page();
             }
 
-            var code = await this._simpleKeyValueService.Get(MobileCodeContainerEnum.Register.ToString(), RegisteInput.Mobile.Trim());
-            if (code != RegisteInput.Code.Trim())
+            if (!await _mobileCodeSender.CheckAsync(RegisteInput.Mobile,RegisteInput.Code))
             {
                 ModelState.AddModelError("", ErrorMessages.CodeError);
                 return Page();
