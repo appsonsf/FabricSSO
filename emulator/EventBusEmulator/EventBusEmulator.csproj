@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Base.Csi.Sms.MsgContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Base.Csi.Sms.MsgContracts.1.0.0\lib\netstandard2.0\Base.Csi.Sms.MsgContracts.dll</HintPath>
+    </Reference>
     <Reference Include="GreenPipes, Version=2.1.4.118, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\GreenPipes.2.1.4\lib\net452\GreenPipes.dll</HintPath>
     </Reference>
@@ -52,9 +55,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.Bson.1.0.2\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="OM.Base.Csi.Messages, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\OM.Base.Csi.Messages.1.0.2\lib\net452\OM.Base.Csi.Messages.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RabbitMQ.Client.5.1.0\lib\net451\RabbitMQ.Client.dll</HintPath>

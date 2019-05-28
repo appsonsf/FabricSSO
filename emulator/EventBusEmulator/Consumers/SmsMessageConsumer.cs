@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Base.Csi.Sms.MsgContracts;
 using MassTransit;
-using OM.Base.Csi.Messages;
 
 namespace EventBusEmulator.Consumers
 {
