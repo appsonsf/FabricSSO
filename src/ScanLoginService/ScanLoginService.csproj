@@ -64,8 +64,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AppsOnSF.Common.BaseServices, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AppsOnSF.Common.BaseServices.1.0.10\lib\net461\AppsOnSF.Common.BaseServices.dll</HintPath>
+    <Reference Include="AppsOnSF.Common.BaseServices, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AppsOnSF.Common.BaseServices.1.0.12\lib\net461\AppsOnSF.Common.BaseServices.dll</HintPath>
     </Reference>
     <Reference Include="AppsOnSF.Common.Options, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AppsOnSF.Common.Options.1.0.4\lib\net452\AppsOnSF.Common.Options.dll</HintPath>
@@ -95,14 +95,14 @@
       <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Diagnostics.EventFlow.Core, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.Core.1.5.6\lib\net471\Microsoft.Diagnostics.EventFlow.Core.dll</HintPath>
+    <Reference Include="Microsoft.Diagnostics.EventFlow.Core, Version=1.5.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.Core.1.5.7\lib\net471\Microsoft.Diagnostics.EventFlow.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Diagnostics.EventFlow.EtwUtilities, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.EtwUtilities.1.6.0\lib\net471\Microsoft.Diagnostics.EventFlow.EtwUtilities.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Diagnostics.EventFlow.Inputs.EventSource, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.Inputs.EventSource.1.4.3\lib\net46\Microsoft.Diagnostics.EventFlow.Inputs.EventSource.dll</HintPath>
+    <Reference Include="Microsoft.Diagnostics.EventFlow.Inputs.EventSource, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.Inputs.EventSource.1.4.4\lib\net46\Microsoft.Diagnostics.EventFlow.Inputs.EventSource.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Diagnostics.EventFlow.Inputs.Serilog, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.Inputs.Serilog.1.4.0\lib\net451\Microsoft.Diagnostics.EventFlow.Inputs.Serilog.dll</HintPath>
@@ -110,8 +110,8 @@
     <Reference Include="Microsoft.Diagnostics.EventFlow.Outputs.ElasticSearch, Version=2.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.Outputs.ElasticSearch.2.6.1\lib\net451\Microsoft.Diagnostics.EventFlow.Outputs.ElasticSearch.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Diagnostics.EventFlow.ServiceFabric, Version=1.5.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.ServiceFabric.1.5.0\lib\net471\Microsoft.Diagnostics.EventFlow.ServiceFabric.dll</HintPath>
+    <Reference Include="Microsoft.Diagnostics.EventFlow.ServiceFabric, Version=1.5.1.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\..\packages\Microsoft.Diagnostics.EventFlow.ServiceFabric.1.5.1\lib\net471\Microsoft.Diagnostics.EventFlow.ServiceFabric.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
