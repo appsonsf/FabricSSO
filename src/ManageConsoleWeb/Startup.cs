@@ -73,7 +73,7 @@ namespace ManageConsoleWeb
                     options.Authority = idsvrOptions.GetValue<string>("IssuerUri");
                     options.RequireHttpsMetadata = idsvrOptions.GetValue<bool>("RequireHttps");
                     options.ClientId = "sso.mc";
-                    options.ClientSecret = "Microsoft";
+                    options.ClientSecret = "sso_mc";
                     options.ResponseType = "code id_token";
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;

@@ -22,6 +22,7 @@
     <None Include="ApplicationPackageRoot\ApplicationManifest.xml" />
     <None Include="ApplicationParameters\Local.1Node.xml" />
     <None Include="ApplicationParameters\Local.5Node.xml" />
+    <None Include="PublishProfiles\Azure.xml" />
     <None Include="PublishProfiles\Cloud.xml" />
     <None Include="PublishProfiles\Local.1Node.xml" />
     <None Include="PublishProfiles\Local.5Node.xml" />
@@ -36,6 +37,7 @@
     <ProjectReference Include="..\src\SecurityTokenWeb\SecurityTokenWeb.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ApplicationParameters\Azure.xml" />
     <Content Include="ApplicationParameters\Cloud.xml" />
     <Content Include="packages.config" />
   </ItemGroup>

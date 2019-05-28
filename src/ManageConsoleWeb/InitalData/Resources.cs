@@ -12,15 +12,33 @@ namespace ManageConsoleWeb.InitalData
     {
         public static List<IdentityResource> GetIdentityResources()
         {
+            var openid =new IdentityResources.OpenId();
+            var profile = new IdentityResources.Profile();
+            var email = new IdentityResources.Email();
+            var phone = new IdentityResources.Phone();
+            var address = new IdentityResources.Address();
             return new List<IdentityResource>()
             {
-                // some standard scopes from the OIDC spec
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResources.Email(),
-                new IdentityResources.Phone(),
-                new IdentityResources.Address(),
-                // custom identity resource with some consolidated claims
+                new IdentityResource(openid.Name, openid.UserClaims)
+                {
+                    DisplayName ="用户Id",
+                },
+                new IdentityResource(profile.Name, profile.UserClaims)
+                {
+                    DisplayName ="用户信息",
+                },
+                new IdentityResource(email.Name, email.UserClaims)
+                {
+                    DisplayName ="用户Email信息",
+                },
+                new IdentityResource(phone.Name, phone.UserClaims)
+                {
+                    DisplayName ="用户电话信息",
+                },
+                new IdentityResource(address.Name, address.UserClaims)
+                {
+                    DisplayName ="用户地址信息",
+                },
                 new IdentityResource("profile.ext", new[] { "idcard_number","employee_number", "employee_mdmid", "role" })
                 {
                     DisplayName ="用户额外信息",
