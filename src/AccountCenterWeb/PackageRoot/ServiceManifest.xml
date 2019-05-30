@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceManifest Name="AccountCenterWebPkg"
-                 Version="1.0.12"
+                 Version="1.0.13"
                  xmlns="http://schemas.microsoft.com/2011/01/fabric"
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -22,7 +22,7 @@
   </ServiceTypes>
 
   <!-- Code package is your service executable. -->
-  <CodePackage Name="Code" Version="1.0.12">
+  <CodePackage Name="Code" Version="1.0.13">
     <EntryPoint>
       <ExeHost>
         <Program>AccountCenterWeb.exe</Program>

@@ -37,7 +37,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\css\MaterialIcons-Regular.woff2" />
     <None Include="wwwroot\js\mobileCode.js" />
   </ItemGroup>
 </Project>
