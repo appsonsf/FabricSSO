@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.0.10" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.0.11" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="ScanLoginService_InstanceCount" DefaultValue="1" />
     <Parameter Name="ConfigService_InstanceCount" DefaultValue="1" />
@@ -40,7 +40,7 @@
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ScanLoginServicePkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="ScanLoginServicePkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -59,7 +59,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -76,7 +76,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -105,7 +105,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -138,7 +138,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.0.10" />
+    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -177,7 +177,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
