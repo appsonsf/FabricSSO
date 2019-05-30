@@ -35,6 +35,28 @@ namespace ManageConsoleWeb.InitalData
                         "http://localhost:10102/signin-oidc",
                     },
                 },
+                new Client
+                {
+                    ClientId = "sso.ac",
+                    ClientName = "SSO Account Center Client (Don't Delete)",
+                    ClientSecrets =
+                    {
+                        new Secret("sso_ac".Sha256())
+                    },
+                    RequireConsent = false,
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "profile.ext"
+                    },
+                    RedirectUris =
+                    {
+                        "http://localhost:10102/signin-oidc",
+                    },
+                },
+
             };
 
             return clients;

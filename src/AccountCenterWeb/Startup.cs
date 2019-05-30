@@ -79,8 +79,8 @@ namespace AccountCenterWeb
                     options.SignInScheme = "Cookies";
                     options.Authority = idsvrOptions.GetValue<string>("IssuerUri");
                     options.RequireHttpsMetadata = idsvrOptions.GetValue<bool>("RequireHttps");
-                    options.ClientId = "SSO_AC_Web_001";
-                    options.ClientSecret = "SSOACWeb001";
+                    options.ClientId = "sso.ac";
+                    options.ClientSecret = "sso_ac";
                     options.ResponseType = "code id_token";
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
