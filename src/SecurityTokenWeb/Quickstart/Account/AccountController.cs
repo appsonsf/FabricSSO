@@ -48,7 +48,7 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IEventService _events;
         private readonly IUserAppServiceClient _userAppServiceClient;
         private readonly IConfiguration _config;
-        private readonly IMobileLoginCodeSender _smsVerificationCode;
+        private readonly IMobileCodeSender _smsVerificationCode;
         private readonly IHandleLoginService _handleLoginService;
 
         public AccountController(
@@ -57,7 +57,7 @@ namespace IdentityServer4.Quickstart.UI
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
             IUserAppServiceClient userAppServiceClient,
-            IMobileLoginCodeSender sMSVerificationCode,
+            IMobileCodeSender sMSVerificationCode,
             IConfiguration config, IHandleLoginService handleLoginService)
         {
             _interaction = interaction;
@@ -74,7 +74,7 @@ namespace IdentityServer4.Quickstart.UI
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GetLoginMobileVerificationCode(string mobile)
         {
-            var code = await this._smsVerificationCode.Send(mobile);
+            var code = await this._smsVerificationCode.SendAsync(new string[] { mobile });
             return Json(code);
         }
 
@@ -171,7 +171,6 @@ namespace IdentityServer4.Quickstart.UI
                         ModelState.AddModelError("", StsAccountStatusCode.MobileCodeError.ToDescription());
                         return View(vm);
                     }
-
                     break;
                 case LoginType.TempPassword:
                     if (!await this._handleLoginService.CheckTempPasswordLoginAsync(user, model.Password))

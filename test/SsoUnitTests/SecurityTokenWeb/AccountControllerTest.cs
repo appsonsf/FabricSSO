@@ -24,6 +24,7 @@ using Sso.Remoting;
 using Sso.Remoting.Models;
 using Constants = AppsOnSF.Common.BaseServices.Constants;
 using ControllerContext = Microsoft.AspNetCore.Mvc.ControllerContext;
+using Sso.Remoting.Events;
 
 namespace SsoUnitTests.SecurityTokenWeb
 {
@@ -48,7 +49,7 @@ namespace SsoUnitTests.SecurityTokenWeb
                 eventService.Object, userAppServiceClient.Object, mobileLoginCodeSender.Object, configuration.Object, LoginService.Object);
             var result = await accountController.GetLoginMobileVerificationCode("15523318594");
             Assert.IsTrue(result is JsonResult);
-            mobileLoginCodeSender.Verify(u => u.Send(It.IsAny<string>()), Times.Once);
+            mobileLoginCodeSender.Verify(u => u.SendAsync(It.IsAny<string[]>()), Times.Once);
         }
 
         [TestMethod]
@@ -167,10 +168,10 @@ namespace SsoUnitTests.SecurityTokenWeb
             return server;
         }
 
-        private Mock<IMobileLoginCodeSender> MockMobileLoginCodeSender()
+        private Mock<IMobileCodeSender> MockMobileLoginCodeSender()
         {
-            var server = new Mock<IMobileLoginCodeSender>();
-            server.Setup(u => u.Send(It.IsAny<string>())).ReturnsAsync("111");
+            var server = new Mock<IMobileCodeSender>();
+            server.Setup(u => u.SendAsync(It.IsAny<string[]>())).ReturnsAsync("111");
             return server;
         }
 
