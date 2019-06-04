@@ -7,28 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - ManageConsole.Web</title>
-    <!-- Bootstrap -->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Font Awesome -->
-    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/css/custom.min.css" rel="stylesheet" />
-    <link href="~/css/select2.min.css" rel="stylesheet" />
-    <!--pNotify-->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/font-awesome/5.8.2/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/select2/4.0.2/css/select2.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/jquery-confirm/3.3.1/jquery-confirm.min.css" rel="stylesheet" />
     <link href="~/css/pnotify.custom.min.css" rel="stylesheet">
-    <link href="~/css/jquery-confirm.min.css" rel="stylesheet" />
     <link href="~/css/loaders.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/custom.min.css" rel="stylesheet" />
 </head>
 <body class="nav-md">
     @Html.AntiForgeryToken()
     @RenderBody()
 
     @{
-        var userName = string.Empty;
-        if (this.Context.User.Identity.IsAuthenticated && Context.User.Claims.FirstOrDefault(u => u.Type == "name") != null)
-        {
-            userName = Context.User.Claims.FirstOrDefault(u => u.Type == "name").Value;
-        }
+    var userName = string.Empty;
+    if (this.Context.User.Identity.IsAuthenticated && Context.User.Claims.FirstOrDefault(u => u.Type == "name") != null)
+    {
+    userName = Context.User.Claims.FirstOrDefault(u => u.Type == "name").Value;
+    }
 
     }
     <input type="hidden" id="_username" value="@(userName)" />
@@ -36,11 +33,10 @@
 
     </div>
     <!-- jQuery -->
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/jstree.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/pnotify.custom.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jstree/3.3.5/jstree.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/pnotify/3.2.1/pnotify.js"></script>
     <script src="~/js/select2.min.js"></script>
     <script src="css/jquery-confirm.min.js"></script>
     <script src="~/js/jquery.tagsinput.js"></script>
