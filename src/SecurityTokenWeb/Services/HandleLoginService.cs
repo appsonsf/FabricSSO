@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppsOnSF.Common.BaseServices;
 using Sso.Remoting;
+using Sso.Remoting.Events;
 using Sso.Remoting.Models;
 using Constants = Sso.Remoting.Constants;
 
@@ -17,11 +18,16 @@ namespace SecurityTokenWeb.Services
     {
         private readonly IUserAppServiceClient _userAppServiceClient;
         private readonly ISimpleKeyValueService _simpleKeyValueService;
+        private readonly IMobileCodeSender _mobileCodeSender;
 
-        public HandleLoginService(IUserAppServiceClient userAppServiceClient, ISimpleKeyValueService simpleKeyValueService)
+        public HandleLoginService(IUserAppServiceClient userAppServiceClient,
+            ISimpleKeyValueService simpleKeyValueService,
+            IMobileCodeSender mobileLoginCodeSender
+            )
         {
-            _userAppServiceClient = userAppServiceClient;
-            _simpleKeyValueService = simpleKeyValueService;
+            this._userAppServiceClient = userAppServiceClient;
+            this._simpleKeyValueService = simpleKeyValueService;
+            this._mobileCodeSender = mobileLoginCodeSender;
         }
 
         /// <summary>
@@ -49,15 +55,7 @@ namespace SecurityTokenWeb.Services
         /// <returns></returns>
         public async Task<bool> CheckMobileLoginAsync(UserItemDto user, string password)
         {
-            var code = await _simpleKeyValueService.CheckAndGet(
-                Constants.SimpleKeyValueServiceContainerName_MobileCode,
-                user.Mobile, TimeSpan.FromMinutes(5)); //短信验证码5分钟有效
-            if (code != password)
-                return false;
-
-            await _simpleKeyValueService.Remove(
-                Constants.SimpleKeyValueServiceContainerName_MobileCode, user.Mobile);
-            return true;
+            return await this._mobileCodeSender.CheckAsync(user.Mobile, password);
         }
 
         /// <summary>

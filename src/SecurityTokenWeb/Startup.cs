@@ -55,7 +55,7 @@ namespace SecurityTokenWeb
             });
 
             var (bus, bus_option) = this.CreateBus("RabbitMQ");
-            services.AddScoped<IMobileLoginCodeSender, MobileLoginCodeSender>();
+            services.AddScoped<IMobileCodeSender, MobileCodeSender>();
             services.AddMobileCodeSender(bus, bus_option.HostAddress);
 
             services.AddSingleton<IHandleLoginService, HandleLoginService>();

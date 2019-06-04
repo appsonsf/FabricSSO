@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SecurityTokenWeb.Services;
+using Sso.Remoting.Events;
 
 namespace SecurityTokenWeb.Controllers
 {
@@ -11,9 +12,9 @@ namespace SecurityTokenWeb.Controllers
     [Route("api/MobileLogin")]
     public class MobileLoginController : Controller
     {
-        private readonly IMobileLoginCodeSender _codeSender;
+        private readonly IMobileCodeSender _codeSender;
 
-        public MobileLoginController(IMobileLoginCodeSender codeSender)
+        public MobileLoginController(IMobileCodeSender codeSender)
         {
             _codeSender = codeSender;
         }
@@ -24,7 +25,7 @@ namespace SecurityTokenWeb.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("mobile is null");
-            return await _codeSender.Send(mobile);
+            return await _codeSender.SendAsync(new string[] { mobile });
         }
     }
 }
