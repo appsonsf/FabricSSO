@@ -10,6 +10,10 @@
     <Parameter Name="HangfireDbConnection" Value="Data Source=(local)\SQLEXPRESS;Initial Catalog=SsoSfApp_MC_HangfireDb;Integrated Security=True;MultipleActiveResultSets=true" />
   </Section>
 
+  <Section Name="General">
+    <Parameter Name="StaticFileSiteHost" Value="http://localhost:10103"/>
+  </Section>
+
   <Section Name="IdSvr">
     <Parameter Name="IssuerUri" Value="http://localhost:10103"/>
     <Parameter Name="RequireHttps" Value="false"/>

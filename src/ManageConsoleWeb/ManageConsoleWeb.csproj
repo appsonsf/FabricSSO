@@ -37,10 +37,9 @@
   <ItemGroup>
     <ProjectReference Include="..\OM.Base.Sso.Messages\OM.Base.Sso.Messages.csproj" />
     <ProjectReference Include="..\Sso.Remoting\Sso.Remoting.csproj" />
+    <ProjectReference Include="..\WebCommon\WebCommon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pages\ClientManager\Index.cshtml" />
-    <None Include="Pages\ResourcesManager\Index.cshtml" />
     <None Include="wwwroot\images\banner1.svg" />
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />
