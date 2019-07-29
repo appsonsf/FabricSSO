@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Client;
+using OM.Base.Sso.Messages;
 using OpenApiClient;
 using OpenApiClient.MdmDataDistribute;
 using ServiceFabricContrib;
@@ -45,7 +46,6 @@ namespace AccountCenterWeb
                .PersistKeysToServiceFabric();
 #endif
             services.AddRemotingService();
-
             //π‹¿ÌhttpClient
             services.AddHttpClient<IContactsClient, ContactsClient>(client =>
             {
@@ -53,7 +53,10 @@ namespace AccountCenterWeb
                 client.Timeout = TimeSpan.FromSeconds(10);
             });
             var (bus, bus_option) = this.CreateBus("RabbitMQ");
+            var (sso2ad_bus, _) = this.CreateBus("RabbitMQ_sso2ad");
+            //services.AddSingleton<IAdEventSender, AdEventSender>();
             services.AddMobileCodeSender(bus, bus_option.HostAddress);
+            services.AddSingleton(sso2ad_bus);
 
             services.AddMvc().AddRazorPagesOptions(u =>
             {
@@ -79,14 +82,15 @@ namespace AccountCenterWeb
                     options.SignInScheme = "Cookies";
                     options.Authority = idsvrOptions.GetValue<string>("IssuerUri");
                     options.RequireHttpsMetadata = idsvrOptions.GetValue<bool>("RequireHttps");
-                    options.ClientId = "sso.ac";
-                    options.ClientSecret = "sso_ac";
+                    options.ClientId = "SSO_AC_Web_001";
+                    options.ClientSecret = "SSOACWeb001";
                     options.ResponseType = "code id_token";
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.Scope.Add("profile.ext");
+                    options.Scope.Add("phone");
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = false
@@ -139,6 +143,7 @@ namespace AccountCenterWeb
             {
                 app.UseExceptionHandler("/Error");
             }
+
             app.UseAuthentication();
             app.UseStaticFiles();
 

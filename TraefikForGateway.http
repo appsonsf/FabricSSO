@@ -1,0 +1,109 @@
+#QA
+@qaUrl=http://192.168.100.42:19080/Names/SsoApp/
+
+### AccountCenterWeb QA
+PUT {{qaUrl}}AccountCenterWeb/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: account.test.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+### ManageConsoleWeb QA
+PUT {{qaUrl}}ManageConsoleWeb/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: sso-mc.test.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+### ScanLoginService QA
+PUT {{qaUrl}}ScanLoginService/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: sso-sls.test.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+### SecurityTokenWeb QA
+PUT {{qaUrl}}SecurityTokenWeb/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: login.test.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+#PROD
+@prodUrl=http://192.168.100.60:19080/Names/SsoApp/
+
+### AccountCenterWeb PROD
+PUT {{prodUrl}}AccountCenterWeb/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: account.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+### ManageConsoleWeb PROD
+PUT {{prodUrl}}ManageConsoleWeb/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: sso-mc.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+### ScanLoginService PROD
+PUT {{prodUrl}}ScanLoginService/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: sso-sls.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}
+
+### SecurityTokenWeb PROD
+PUT {{prodUrl}}SecurityTokenWeb/$/GetProperty?api-version=6.0&IncludeValues=true
+content-type: application/json
+
+{
+  "PropertyName": "traefik.frontend.rule",
+  "Value": {
+    "Kind": "String",
+    "Data": "Host: login.scrbg.com"
+  },
+  "CustomTypeId": "LabelType"
+}

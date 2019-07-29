@@ -4,39 +4,6 @@
     ViewData["Title"] = "自注册";
     var input = Model.RegisteInput;
 }
-@{
-    <script>
-        $(function () {
-            $(".sendcode").click(function () {
-                var mobile = $("#mobile").val();
-                var self = $(this);
-                $.ajax({
-                    type: 'POST',
-                    url: '/mobile/sendcode',
-                    data: { mobile: mobile, type: 1 },
-                    success: function (result) {
-                        if (result.success) {
-                            self.attr("disabled", true);
-                            //计时器
-                            var time = new Time(60, 1, function (sec) {
-                                self.attr("disabled", true).html("重发(" + sec + "s)");
-                            }, function () {
-                                self.attr("disabled", false).html("发送验证码");
-                            });
-                            time.start();
-                        } else {
-                            alert(result.message);
-                        }
-                    },
-                    error: function () {
-                        alert("请重新尝试发送短信!");
-                    },
-                    dataType: 'json'
-                });
-            });
-        })
-    </script>
-}
 <div class=" col-md-12 col-sm-12">
     <div role="tabpanel" class="tab-pane active" id="_register">
         <form method="post">
@@ -63,7 +30,7 @@
                             <input type="text" asp-for="RegisteInput.Mobile" id="mobile" class="form-control" placeholder="手机号码,最好输入您在人力资源预留的手机号码">
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary sendcode" id="sendCode">发送验证码</button>
+                            <button type="button" class="btn btn-primary sendcode" id="sendCode" mobileType="1">发送验证码</button>
                         </div>
                         <span class="col-sm-3 remarks">请输入手机号码</span>
                     </div>
