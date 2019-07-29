@@ -7,9 +7,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ContactGroup\**" />
+    <Compile Remove="wwwroot\lib\**" />
     <Content Remove="Controllers\ContactGroup\**" />
+    <Content Remove="wwwroot\lib\**" />
     <EmbeddedResource Remove="Controllers\ContactGroup\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
     <None Remove="Controllers\ContactGroup\**" />
+    <None Remove="wwwroot\lib\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="package-lock.json" />
@@ -46,70 +50,6 @@
     <None Include="wwwroot\images\banner4.svg" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
-    <None Include="wwwroot\lib\bootstrap\dist\js\npm.js" />
-    <None Include="wwwroot\lib\bootstrap\LICENSE" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
-    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
-    <None Include="wwwroot\lib\layer\layer.js" />
-    <None Include="wwwroot\lib\layer\mobile\layer.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\fonts\fontawesome-webfont.svg" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\bootbox.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\bootstrap-colorpicker.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\bootstrap-datepicker.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\bootstrap-wysihtml5.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\bootstrap.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\excanvas.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\fullcalendar.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery-ui.custom.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery-ui.custom.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.dataTables.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.flot.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.flot.pie.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.flot.resize.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.gritter.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.icheck.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.masonry.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.nicescroll.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.sparkline.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.validate.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\jquery.wizard.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\respond.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\select2.min.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.calendar.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.charts.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.chat.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.dashboard.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.form_common.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.form_validation.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.interface.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.jui.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.login.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.tables.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\unicorn.wizard.js" />
-    <None Include="wwwroot\lib\UnicornAdmin\js\wysihtml5.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.common.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.esm.browser.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.esm.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.min.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.runtime.common.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.runtime.esm.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.runtime.js" />
-    <None Include="wwwroot\lib\Vue\dist\vue.runtime.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="PackageRoot\Config\eventFlowConfig.json">
