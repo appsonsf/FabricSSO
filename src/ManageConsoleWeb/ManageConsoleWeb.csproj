@@ -7,12 +7,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ContactGroup\**" />
+    <Compile Remove="Pages\ClientManager\**" />
+    <Compile Remove="Pages\ResourcesManager\**" />
     <Compile Remove="wwwroot\lib\**" />
     <Content Remove="Controllers\ContactGroup\**" />
+    <Content Remove="Pages\ClientManager\**" />
+    <Content Remove="Pages\ResourcesManager\**" />
     <Content Remove="wwwroot\lib\**" />
     <EmbeddedResource Remove="Controllers\ContactGroup\**" />
+    <EmbeddedResource Remove="Pages\ClientManager\**" />
+    <EmbeddedResource Remove="Pages\ResourcesManager\**" />
     <EmbeddedResource Remove="wwwroot\lib\**" />
     <None Remove="Controllers\ContactGroup\**" />
+    <None Remove="Pages\ClientManager\**" />
+    <None Remove="Pages\ResourcesManager\**" />
     <None Remove="wwwroot\lib\**" />
   </ItemGroup>
   <ItemGroup>
@@ -50,8 +58,6 @@
     <None Include="wwwroot\images\banner4.svg" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
-    <None Include="Pages\ClientManager\Index.cshtml" />
-    <None Include="Pages\ResourcesManager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="PackageRoot\Config\eventFlowConfig.json">
