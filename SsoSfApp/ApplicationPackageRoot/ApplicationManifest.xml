@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.0.13" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.1.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="ScanLoginService_InstanceCount" DefaultValue="1" />
     <Parameter Name="ConfigService_InstanceCount" DefaultValue="1" />
@@ -18,7 +18,7 @@
     <Parameter Name="RabbitMQ_sso2mdm_HostAddress" DefaultValue="rabbitmq://localhost/sso2mdm" />
     <Parameter Name="RabbitMQ_sso2mdm_Username" DefaultValue="guest" />
     <Parameter Name="RabbitMQ_sso2mdm_Password" DefaultValue="guest" />
-    <Parameter Name="ConfigDb_ConnectionString" DefaultValue="Data Source=(local)\SQLEXPRESS;Initial Catalog=SsoSfApp_ConfigDb;Integrated Security=True;MultipleActiveResultSets=true" />
+    <Parameter Name="ConfigDb_ConnectionString" DefaultValue="Data Source=(local)\SQLEXPRESS;Initial Catalog=FabricSSO_ConfigDb;Integrated Security=True;MultipleActiveResultSets=true" />
     <Parameter Name="IdSvr_IssuerUri" DefaultValue="http://localhost:10103" />
     <Parameter Name="IdSvr_RequireHttps" DefaultValue="false" />
     <Parameter Name="IdSvr_ScanLoginServiceUri" DefaultValue="http://localhost:10104" />
@@ -26,7 +26,7 @@
     <Parameter Name="RedisHost" DefaultValue="127.0.0.1:6379" />
     <Parameter Name="RedisEventAppName" DefaultValue="QrCodeApp" />
     <Parameter Name="EncryptionPassword" DefaultValue="SignalRSelfHostScaleOut!#$" />
-    <Parameter Name="MC_HangfireDb_ConnectionString" DefaultValue="Data Source=(local)\SQLEXPRESS;Initial Catalog=SsoSfApp_MC_HangfireDb;Integrated Security=True;MultipleActiveResultSets=true" />
+    <Parameter Name="MC_HangfireDb_ConnectionString" DefaultValue="Data Source=(local)\SQLEXPRESS;Initial Catalog=FabricSSO_MC_HangfireDb;Integrated Security=True;MultipleActiveResultSets=true" />
     <Parameter Name="Minio_Endpoint" DefaultValue="127.0.0.1:9000" />
     <Parameter Name="Minio_AccessKey" DefaultValue="A9D5AK5B8KJPVNHGNEZ2" />
     <Parameter Name="Minio_SecretKey" DefaultValue="nfiCNF3R0be3w8UD9xcAZlcJq4cYp3y4eT87WO0g" />
@@ -40,7 +40,7 @@
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ScanLoginServicePkg" ServiceManifestVersion="1.0.11" />
+    <ServiceManifestRef ServiceManifestName="ScanLoginServicePkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -59,7 +59,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.11" />
+    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -76,7 +76,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.11" />
+    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -105,7 +105,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.0.12" />
+    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -138,7 +138,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.0.12" />
+    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -177,7 +177,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.0.13" />
+    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceManifest Name="ScanLoginServicePkg"
-                 Version="1.0.11"
+                 Version="1.1.0"
                  xmlns="http://schemas.microsoft.com/2011/01/fabric"
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -23,7 +23,7 @@
   </ServiceTypes>
 
   <!-- 代码包是指服务可执行文件。 -->
-  <CodePackage Name="Code" Version="1.0.11">
+  <CodePackage Name="Code" Version="1.1.0">
     <EntryPoint>
       <ExeHost>
         <Program>ScanLoginService.exe</Program>
@@ -33,7 +33,7 @@
 
   <!-- 配置包是 PackageRoot 下 Config 目录的内容，它包含服务的一组 
        可独立更新且固定版本的自定义配置设置。-->
-  <ConfigPackage Name="Config" Version="1.0.11" />
+  <ConfigPackage Name="Config" Version="1.1.0" />
 
   <Resources>
     <Endpoints>
