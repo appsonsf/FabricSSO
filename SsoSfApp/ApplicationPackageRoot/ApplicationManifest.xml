@@ -35,6 +35,7 @@
     <Parameter Name="Diagnostics_ElasticsearchHost" DefaultValue="http://127.0.0.1:9200" />
     <Parameter Name="General_StaticFileSiteHost_AccountCenter" DefaultValue="http://localhost:10101" />
     <Parameter Name="General_StaticFileSiteHost_SecurityToken" DefaultValue="http://localhost:10103" />
+    <Parameter Name="General_StaticFileSiteHost_ManageConsole" DefaultValue="http://localhost:10102" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -142,6 +143,9 @@
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
+          <Section Name="General">
+            <Parameter Name="StaticFileSiteHost" Value="[General_StaticFileSiteHost_ManageConsole]" />
+          </Section>
           <Section Name="ConnectionStrings">
             <Parameter Name="HangfireDbConnection" Value="[MC_HangfireDb_ConnectionString]" />
           </Section>

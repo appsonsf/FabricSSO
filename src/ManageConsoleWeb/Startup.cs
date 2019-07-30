@@ -167,7 +167,18 @@ namespace ManageConsoleWeb
             {
                 Authorization = new[] { new HangfireAuthorizationFilter() }
             });
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routeBuilder =>
+            {
+                var defaultContrat = new { controller = "Home", Action = "Index" };
+                routeBuilder.MapRoute("default", "{controller}/{action}", defaultContrat);
+                routeBuilder.MapRoute("roleManage", "RoleManage", defaultContrat);
+                routeBuilder.MapRoute("roleUsersManager", "RoleUsersManage", defaultContrat);
+                routeBuilder.MapRoute("clientManager", "ClientManage", defaultContrat);
+                routeBuilder.MapRoute("resourceManage", "ResourceManage", defaultContrat);
+                routeBuilder.MapRoute("clientManage", "ClientManage", defaultContrat);
+                routeBuilder.MapRoute("userManage", "UserManage", defaultContrat);
+                routeBuilder.MapRoute("empManage", "EmpManage", defaultContrat);
+            });
         }
     }
 }
