@@ -53,10 +53,8 @@ namespace AccountCenterWeb
                 client.Timeout = TimeSpan.FromSeconds(10);
             });
             var (bus, bus_option) = this.CreateBus("RabbitMQ");
-            var (sso2ad_bus, _) = this.CreateBus("RabbitMQ_sso2ad");
             //services.AddSingleton<IAdEventSender, AdEventSender>();
             services.AddMobileCodeSender(bus, bus_option.HostAddress);
-            services.AddSingleton(sso2ad_bus);
 
             services.AddMvc().AddRazorPagesOptions(u =>
             {
@@ -68,7 +66,7 @@ namespace AccountCenterWeb
             });
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            #region  授权认证接入SSO
+            #region  
             var idsvrOptions = Configuration.GetSection("IdSvr");
             services
                 .AddAuthentication(options =>

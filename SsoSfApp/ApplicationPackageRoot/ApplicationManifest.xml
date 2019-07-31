@@ -63,7 +63,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -80,7 +80,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.9" />
+    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.11" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -126,11 +126,6 @@
             <Parameter Name="Username" Value="[RabbitMQ_Username]" />
             <Parameter Name="Password" Value="[RabbitMQ_Password]" />
           </Section>
-          <Section Name="RabbitMQ_sso2ad">
-            <Parameter Name="HostAddress" Value="[RabbitMQ_sso2ad_HostAddress]" />
-            <Parameter Name="Username" Value="[RabbitMQ_sso2ad_Username]" />
-            <Parameter Name="Password" Value="[RabbitMQ_sso2ad_Password]" />
-          </Section>
           <Section Name="Diagnostics">
             <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
             <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
@@ -151,9 +146,6 @@
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
-          <Section Name="General">
-            <Parameter Name="StaticFileSiteHost" Value="[General_StaticFileSiteHost_ManageConsole]" />
-          </Section>
           <Section Name="ConnectionStrings">
             <Parameter Name="HangfireDbConnection" Value="[MC_HangfireDb_ConnectionString]" />
           </Section>
@@ -176,11 +168,6 @@
             <Parameter Name="Username" Value="[RabbitMQ_mdm_Username]" />
             <Parameter Name="Password" Value="[RabbitMQ_mdm_Password]" />
           </Section>
-          <Section Name="RabbitMQ_sso2ad">
-            <Parameter Name="HostAddress" Value="[RabbitMQ_sso2ad_HostAddress]" />
-            <Parameter Name="Username" Value="[RabbitMQ_sso2ad_Username]" />
-            <Parameter Name="Password" Value="[RabbitMQ_sso2ad_Password]" />
-          </Section>
           <Section Name="Diagnostics">
             <Parameter Name="EventSourceLevel" Value="[Diagnostics_EventSourceLevel]" />
             <Parameter Name="SerilogEventLevel" Value="[Diagnostics_SerilogEventLevel]" />
@@ -200,11 +187,6 @@
         <Settings>
           <Section Name="General">
             <Parameter Name="StaticFileSiteHost" Value="[General_StaticFileSiteHost_AccountCenter]" />
-          </Section>
-          <Section Name="RabbitMQ_sso2ad">
-            <Parameter Name="HostAddress" Value="[RabbitMQ_sso2ad_HostAddress]" />
-            <Parameter Name="Username" Value="[RabbitMQ_sso2ad_Username]" />
-            <Parameter Name="Password" Value="[RabbitMQ_sso2ad_Password]" />
           </Section>
           <Section Name="RabbitMQ">
             <Parameter Name="HostAddress" Value="[RabbitMQ_HostAddress]" />
