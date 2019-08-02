@@ -26,21 +26,26 @@ namespace ManageConsoleWeb.Services
 
         public async Task<CreateUserResult> CreateUserAsync(UserItemInputDto input)
         {
-            string message = string.Empty;
-            var result = new CreateUserResult();
-            var success = DataModelValidate.AddOrUpdateUserValidate(input, ref message);
-            if (!success)
-            {
-                result.Success = false;
-                result.Message = message;
-                return result;
-            }
 
+            var result = new CreateUserResult();
             if (await _userAppServiceClient.IsMobileExistedAsync(input.Mobile))
             {
                 result.Success = false;
                 result.Message = "手机号码已经存在";
                 return result;
+            }
+            var (findByNumber, _) = await _userAppServiceClient.FindByEmployeeNumberAsync(input.EmployeeNumber.Trim());
+            if (findByNumber != null)
+            {
+                result.Success = false;
+                result.Message = "员工号已经存在!";
+            }
+
+            var (findByIdCardNo, _) = await _userAppServiceClient.FindByIdCardNoAsync(input.IdCardNo.Trim());
+            if (findByIdCardNo != null)
+            {
+                result.Success = false;
+                result.Message = "此身份证号已经存在用户使用!";
             }
 
             var userResult = await _userAppServiceClient.FindByUsernameAsync(input.Username);
@@ -59,6 +64,7 @@ namespace ManageConsoleWeb.Services
                 Password = input.UserPwd,
                 Name = input.Name,
                 EmployeeNumber = input.EmployeeNumber,
+                EmployeeMdmId = input.MdmId,
                 Avatar = input.Avatar,
                 Mobile = input.Mobile,
                 IsActive = true
@@ -71,6 +77,7 @@ namespace ManageConsoleWeb.Services
                 return result;
             }
             //记录Id
+            input.Id = returnDto.Id.ToString();
             result.Success = true;
             result.Message = "创建用户成功!";
             return result;

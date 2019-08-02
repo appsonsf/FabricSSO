@@ -48,8 +48,9 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IEventService _events;
         private readonly IUserAppServiceClient _userAppServiceClient;
         private readonly IConfiguration _config;
-        private readonly IMobileCodeSender _smsVerificationCode;
+        private readonly IMobileCodeSender _mobileCodeSender;
         private readonly IHandleLoginService _handleLoginService;
+        //private readonly IAdEventSender _adEventSender;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
@@ -57,25 +58,28 @@ namespace IdentityServer4.Quickstart.UI
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
             IUserAppServiceClient userAppServiceClient,
-            IMobileCodeSender sMSVerificationCode,
-            IConfiguration config, IHandleLoginService handleLoginService)
+            IMobileCodeSender mobileCodeSender,
+            IConfiguration config, IHandleLoginService handleLoginService
+            //, IAdEventSender adEventSender
+            )
         {
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
-            _smsVerificationCode = sMSVerificationCode;
+            _mobileCodeSender = mobileCodeSender;
             _userAppServiceClient = userAppServiceClient;
             _config = config;
             _handleLoginService = handleLoginService;
+            //_adEventSender = adEventSender;
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GetLoginMobileVerificationCode(string mobile)
         {
-            var code = await this._smsVerificationCode.SendAsync(new string[] { mobile });
-            return Json(code);
+            await this._mobileCodeSender.SendAsync(new string[] { mobile });
+            return Json("");
         }
 
         /// <summary>
@@ -171,6 +175,7 @@ namespace IdentityServer4.Quickstart.UI
                         ModelState.AddModelError("", StsAccountStatusCode.MobileCodeError.ToDescription());
                         return View(vm);
                     }
+
                     break;
                 case LoginType.TempPassword:
                     if (!await this._handleLoginService.CheckTempPasswordLoginAsync(user, model.Password))
@@ -186,6 +191,7 @@ namespace IdentityServer4.Quickstart.UI
             {
                 var eventUser = user.DeepCopy();
                 eventUser.Password = model.Password.Trim();
+                //await this._adEventSender.SendUserAddEventAsync(new List<UserItemDto>() { eventUser });
             }
 
             await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.Id.ToString(), user.Username));

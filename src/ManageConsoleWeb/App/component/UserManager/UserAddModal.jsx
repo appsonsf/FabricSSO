@@ -28,6 +28,8 @@ export default class UserAddModal extends Component {
         data.Mobile = $("#phones").val();
         data.Username = $("#usernames").val();
         data.UserPwd = $("#pwd").val();
+        data.EmployeeNumber = $("#numbers").val();
+        data.mdmid = $("#mdmid").val();
         return data;
     }
 
@@ -59,6 +61,23 @@ export default class UserAddModal extends Component {
                                         <input type="text" id="idcardno" className="form-control col-md-7 col-xs-12" />
                                     </div>
                                 </div>
+
+                                <div className="form-group">
+                                    <label className="control-label col-md-3 col-sm-3 col-xs-12">员工号
+                                    </label>
+                                    <div className="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" id="numbers" className="form-control col-md-7 col-xs-12" />
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="control-label col-md-3 col-sm-3 col-xs-12">MdmId
+                                    </label>
+                                    <div className="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" id="mdmid" className="form-control col-md-7 col-xs-12" />
+                                    </div>
+                                </div>
+
 
                                 <div className="form-group">
                                     <label className="control-label col-md-3 col-sm-3 col-xs-12">手机号码

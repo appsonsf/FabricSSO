@@ -2,11 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewData["Title"]-FabricSSO Demo 账户中心</title>
+    <title>@ViewData["Title"]-四川路桥账户中心</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.staticfile.org/font-awesome/5.3.1/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
@@ -15,6 +14,37 @@
     <script src="https://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="@Html.GenerateStaticUrl("/js/mobileCode.js")"></script>
+    <script>
+        $(function () {
+            $(".sendcode").click(function () {
+                var mobile = $("#mobile").val();
+                var self = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: '/mobile/sendcode',
+                    data: { mobile: mobile, type: self.attr("mobileType") },
+                    success: function (result) {
+                        if (result.success) {
+                            self.attr("disabled", true);
+                            //计时器
+                            var time = new Time(60, 1, function (sec) {
+                                self.attr("disabled", true).html("重发(" + sec + "s)");
+                            }, function () {
+                                self.attr("disabled", false).html("发送验证码");
+                            });
+                            time.start();
+                        } else {
+                            alert(result.message);
+                        }
+                    },
+                    error: function () {
+                        alert("请重新尝试发送短信!");
+                    },
+                    dataType: 'json'
+                });
+            });
+        })
+    </script>
     <style>
         .textActive {
             text-decoration: underline;
@@ -95,7 +125,7 @@
         </div>
     </div>
     <div class="footer">
-        <div class="container">@DateTime.Now.Year FabricSSO Demo</div>
+        <div class="container">@DateTime.Now.Year Copy Right. 四川公路桥梁建设集团有限公司</div>
     </div>
 </body>
 </html>

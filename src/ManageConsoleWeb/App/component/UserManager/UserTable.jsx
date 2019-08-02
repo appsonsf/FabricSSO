@@ -139,7 +139,7 @@ export default class UserTable extends Component {
                 <div className="x_panel">
                     <div className="x_title">
                         <h2>用户管理 <small>用户管理列表</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button style={{ marginBottom: -7, display: "none" }} className="btn btn-primary" onClick={this.handleAddClick.bind(this)}>添加用户</button>
+                            <button style={{ marginBottom: -7 }} className="btn btn-primary" onClick={this.handleAddClick.bind(this)}>添加用户</button>
                             <button style={{ marginBottom: -7 }} disabled={this.state.isExportting} className="btn btn-primary" onClick={this.handleExportUserData.bind(this)}>导出用户数据</button>
                             <button style={{ marginBottom: -7 }} className="btn btn-primary" onClick={this.handleImportUserData.bind(this)}>导入用户数据</button>
                         </h2>

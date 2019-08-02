@@ -73,7 +73,6 @@ namespace ManageConsoleWeb.Controllers
                 Mobile = input.Phone,//这里稍微注意一下
                 Name = contactInfo.Name,
                 UserPwd = input.Password,
-                ReUserPwd = input.Password,
                 Username = input.UserName
             });
             return Json(result.Success, null, result.Message);

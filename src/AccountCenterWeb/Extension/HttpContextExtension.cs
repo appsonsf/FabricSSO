@@ -47,5 +47,16 @@ namespace AccountCenterWeb.Extension
                 return string.Empty;
             return claim.Value;
         }
+
+        public static string GetMobile(this HttpContext context)
+        {
+            var User = context.User;
+            if (!User.Identity.IsAuthenticated)
+                return string.Empty;
+            var claim = User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.MobilePhone);
+            if (claim == null)
+                return string.Empty;
+            return claim.Value;
+        }
     }
 }

@@ -35,9 +35,6 @@ namespace ManageConsoleWeb
         private readonly DiagnosticPipeline _diagnosticPipeline;
 
         private readonly IMapper _mapper;
-        private readonly IBusControl _bus_mdm;
-        private readonly IBusControl _bus_sso2mdm;
-        private readonly IBusControl _bus;
 
         public Service(StatelessServiceContext context,
             DiagnosticPipeline diagnosticPipeline)
@@ -52,7 +49,6 @@ namespace ManageConsoleWeb
                 cfg.AddProfile<MappingProfile>();
             });
             _mapper = config.CreateMapper();
-            (_bus, _bus_mdm, _bus_sso2mdm) = BuildRabbitMqBusControl(context);
         }
 
         private (IBusControl, IBusControl, IBusControl) BuildRabbitMqBusControl(ServiceContext context)
@@ -78,9 +74,11 @@ namespace ManageConsoleWeb
         /// <returns>The collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
+            var (bus, bus_mdm, bus_sso2mdm) = BuildRabbitMqBusControl(this.Context);
+
             return new ServiceInstanceListener[]
             {
-                new ServiceInstanceListener(_ => new MassTransitListener(_bus_mdm), "masstransit_mdm"),
+                new ServiceInstanceListener(_ => new MassTransitListener(bus_mdm), "masstransit_mdm"),
                 new ServiceInstanceListener(serviceContext =>
                     new KestrelCommunicationListener(serviceContext, "ServiceEndpoint", (url, listener) =>
                     {
@@ -95,7 +93,9 @@ namespace ManageConsoleWeb
                                                 .AddSingleton(serviceContext)
                                                 .AddSingleton(_diagnosticPipeline)
                                                 .AddSingleton<IUserService,UserService>()
-                                                .AddRabbitMqApp(this._mapper,this._bus,this._bus_sso2mdm))
+                                                .AddRabbitMqApp(this._mapper,bus
+                                                ,bus_sso2mdm
+                                                ))
                                     .UseContentRoot(Directory.GetCurrentDirectory())
                                     .UseStartup<Startup>()
                                     .UseServiceFabricIntegration(listener, ServiceFabricIntegrationOptions.None)

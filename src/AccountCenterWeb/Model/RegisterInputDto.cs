@@ -11,7 +11,7 @@ namespace AccountCenterWeb.Model
     /// </summary>
     public class RegisterInputDto
     {
-        public const string UserNameRegexRule = @"^[a-zA-Z][a-zA-Z0-9]{5,}$";
+        public const string UserNameRegexRule = @"^[a-zA-Z][a-zA-Z0-9-_]{5,}$";
 
         [Required(ErrorMessage = ErrorMessages.IdMust)]
         public string IdCardNo { get; set; }

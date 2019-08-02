@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Events\AdEventSender.cs" />
+    <Compile Remove="Events\IAdEventSender.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="CsvHelper" Version="12.1.2" />
     <PackageReference Include="IdentityServer4" Version="2.4.0" />

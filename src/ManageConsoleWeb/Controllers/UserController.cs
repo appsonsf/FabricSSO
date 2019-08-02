@@ -31,16 +31,20 @@ namespace ManageConsoleWeb.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IUserAppServiceClient _userAppServiceClient;
+        //private readonly IAdEventSender _adEventSender;
 
         public UserController(
             IRemotingClient remotingClient,
             IUserAppServiceClient userAppServiceClient,
             IMapper mapper,
-            IUserService userService)
+            IUserService userService 
+            //, IAdEventSender adEventSender
+            )
         {
             _remotingClient = remotingClient;
             _mapper = mapper;
             _userService = userService;
+            //_adEventSender = adEventSender;
             _userAppServiceClient = userAppServiceClient;
 
         }
@@ -106,6 +110,9 @@ namespace ManageConsoleWeb.Controllers
                 {
                     if (await appService.UpdateUserAsync(user.Id, new UserItemDto { Password = input.Password }) != null)
                     {
+                        //AdEvent
+                        //await _adEventSender.SendUserPasswordUpdateEventAsync(user.EmployeeNumber,
+                        //    input.Password.Trim());
                         return new JsonResult(new AjaxResult() { Success = true, Message = "操作成功" });
                     }
 
@@ -130,13 +137,14 @@ namespace ManageConsoleWeb.Controllers
             var (user, service) = await this._userAppServiceClient.FindByUserIdAsync(input.Id);
             if (user == null)
                 return Json(false, null, "未能找到该用户");
-            var regex = new Regex(@"^[a-zA-Z][a-zA-Z0-9]{1,14}$");
+            var regex = new Regex(@"^[a-zA-Z][a-zA-Z0-9-_]{1,14}$");
             if (string.IsNullOrEmpty(input.UserName) || !regex.IsMatch(input.UserName))
                 return Json(false, null, "用户名不能够为空或者用户名不符合规则(以字母开头的字母或数字组合6-15的组合)");
             var (user1, _) = await this._userAppServiceClient.FindByUserNameOrEmployeeNumberAsync(input.UserName);
             if (user1 != null)
                 return Json(false, null, "用户名已经被使用了！");
             await service.UpdateUserAsync(user.Id, new UserItemDto() { Id = user.Id, Username = input.UserName });
+            //await _adEventSender.SendUserNameUpdateEventAsync(user, input.UserName);
             return Json(true, null, "修改用户名完成");
         }
 
@@ -167,8 +175,20 @@ namespace ManageConsoleWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUserAsync([FromBody]UserItemInputDto InputHrModel)
         {
+            if (!ModelState.IsValid)
+            {
+                var errorMessage = string.Empty;
+                foreach (var item in ModelState.Values)
+                {
+                    foreach (var error in item.Errors)
+                    {
+                        errorMessage += error.ErrorMessage;
+                    }
+                }
+                return Json(false, null, errorMessage);
+            }
             var result = await this._userService.CreateUserAsync(InputHrModel);
-            return Json(result.Success, null, result.Message);
+            return Json(result.Success, InputHrModel, result.Message);
         }
 
 

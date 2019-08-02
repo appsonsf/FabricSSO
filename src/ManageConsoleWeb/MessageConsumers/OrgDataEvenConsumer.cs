@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Base.Mdm.Org.MsgContracts;
 using MassTransit;
+using ServiceFabricContrib;
 using Sso.Remoting;
+using Sso.Remoting.Models;
 
 namespace ManageConsoleWeb.MessageConsumers
 {
@@ -34,6 +36,18 @@ namespace ManageConsoleWeb.MessageConsumers
                 if (user.IsActive.HasValue && !user.IsActive.Value)
                     continue;
                 await appService.EnableOrDisableUserAsync(user.Id, false);
+            }
+
+            foreach (var update in message.ContactUpdateds.Where(u => u.OldData.Number != u.NewData.Number && u.NewData.UserId.HasValue).ToList())
+            {
+                var (user, appService) = await this._userAppServiceClient.FindByUserIdAsync(update.NewData.UserId.ToString());
+                if (user.IsActive.HasValue && !user.IsActive.Value)
+                    continue;
+                await appService.UpdateUserAsync(new ItemId(update.NewData.UserId.Value), new UserItemDto()
+                {
+                    Id = new ItemId(update.NewData.UserId.Value),
+                    EmployeeNumber = update.NewData.Number
+                });
             }
         }
     }

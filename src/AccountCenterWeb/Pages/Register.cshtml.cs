@@ -14,16 +14,18 @@ namespace AccountCenterWeb.Pages
     public class RegisterModel : PageModel
     {
         private readonly IUserAppServiceClient _userAppServiceClient;
-        private readonly IContactsClient _contactService;
         private readonly IMobileCodeSender _mobileCodeSender;
+        private readonly IContactsClient _contactService;
 
-        public RegisterModel(IUserAppServiceClient userAppServiceClient,
+
+        public RegisterModel(
+            IUserAppServiceClient userAppServiceClient,
             IMobileCodeSender mobileCodeSender,
             IContactsClient contactService)
         {
             _userAppServiceClient = userAppServiceClient;
-            _contactService = contactService;
             _mobileCodeSender = mobileCodeSender;
+            _contactService = contactService;
         }
 
         [BindProperty]
@@ -74,11 +76,11 @@ namespace AccountCenterWeb.Pages
             }
             if (RegisteInput.Mobile.Trim() != contactInfo.Mobile && !string.IsNullOrEmpty(contactInfo.Mobile))
             {
-                ModelState.AddModelError("", "您必须使用在HR系统中预留的手机号码:" + contactInfo.Mobile);
+                ModelState.AddModelError("", "您必须使用在金蝶预留的手机号码:" + contactInfo.Mobile);
                 return Page();
             }
 
-            if (!await _mobileCodeSender.CheckAsync(RegisteInput.Mobile,RegisteInput.Code))
+            if (!await _mobileCodeSender.CheckAsync(contactInfo.Mobile, RegisteInput.Code.Trim()))
             {
                 ModelState.AddModelError("", ErrorMessages.CodeError);
                 return Page();
