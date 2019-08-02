@@ -34,6 +34,10 @@ namespace ManageConsoleWeb.InitalData
                     {
                         "http://localhost:10102/signin-oidc",
                     },
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:10102",
+                    }
                 },
                 new Client
                 {
@@ -53,8 +57,12 @@ namespace ManageConsoleWeb.InitalData
                     },
                     RedirectUris =
                     {
-                        "http://localhost:10102/signin-oidc",
+                        "http://localhost:10101/signin-oidc",
                     },
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:10101",
+                    }
                 },
 
             };
