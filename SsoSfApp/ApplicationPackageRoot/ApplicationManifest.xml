@@ -63,7 +63,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.0.11" />
+    <ServiceManifestRef ServiceManifestName="ConfigServicePkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -80,7 +80,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.0.11" />
+    <ServiceManifestRef ServiceManifestName="ProfileStateServicePkg" ServiceManifestVersion="1.1.0" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
