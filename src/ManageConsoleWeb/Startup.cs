@@ -20,6 +20,11 @@ using IdentityServer4.Validation;
 using ManageConsoleWeb.HangfireJobs;
 using OpenApiClient.MdmDataDistribute;
 using OpenApiClient;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis.Options;
+using System.Collections.Generic;
+using System.Net;
 
 namespace ManageConsoleWeb
 {
@@ -39,6 +44,14 @@ namespace ManageConsoleWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.All;
+
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
+
             services.AddHealthChecks();
 
 #if !DEBUG
@@ -46,8 +59,6 @@ namespace ManageConsoleWeb
                 .SetApplicationName("SsoApp-ManageConsoleWeb")
                 .PersistKeysToServiceFabric();
 #endif
-
-
 
             services.AddRemotingService();
             var idsvrOptions = Configuration.GetSection("IdSvr");
@@ -100,8 +111,14 @@ namespace ManageConsoleWeb
                                 }
                             }
 
-                            return Task.FromResult(0);
-                        }
+                            return Task.CompletedTask;
+                        },
+
+                        //OnTokenValidated = (context) =>
+                        //{
+                        //    context.Response.Headers.Add("Location", idsvrOptions.GetValue<string>("RedirectUri"));
+                        //    return Task.CompletedTask;
+                        //}
                     };
                 });
             #endregion
@@ -135,12 +152,9 @@ namespace ManageConsoleWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
-            app.UseHealthChecks("/health");
+            app.UseForwardedHeaders();
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            app.UseHealthChecks("/health");
 
             loggerFactory.AddDebug();
 

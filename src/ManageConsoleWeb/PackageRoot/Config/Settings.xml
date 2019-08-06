@@ -11,11 +11,12 @@
   </Section>
 
   <Section Name="General">
-    <Parameter Name="StaticFileSiteHost" Value="http://localhost:10103"/>
+    <Parameter Name="StaticFileSiteHost" Value="http://localhost:10102"/>
   </Section>
 
   <Section Name="IdSvr">
     <Parameter Name="IssuerUri" Value="http://localhost:10103"/>
+    <Parameter Name="RedirectUri" Value="http://localhost:10102"/>
     <Parameter Name="RequireHttps" Value="false"/>
   </Section>
 

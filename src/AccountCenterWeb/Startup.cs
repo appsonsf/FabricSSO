@@ -22,6 +22,7 @@ using ServiceFabricContrib;
 using Sso.Remoting;
 using Sso.Remoting.Events;
 using WebCommon;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace AccountCenterWeb
 {
@@ -37,6 +38,14 @@ namespace AccountCenterWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.All;
+
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
+
             services.AddHealthChecks();
 
 #if !DEBUG
@@ -126,6 +135,8 @@ namespace AccountCenterWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders();
+
             app.UseHealthChecks("/health");
 
             loggerFactory.AddDebug();

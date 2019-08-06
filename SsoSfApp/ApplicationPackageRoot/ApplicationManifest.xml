@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.1.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.1.7" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="ScanLoginService_InstanceCount" DefaultValue="1" />
     <Parameter Name="ConfigService_InstanceCount" DefaultValue="1" />
     <Parameter Name="SecurityTokenWeb_InstanceCount" DefaultValue="1" />
     <Parameter Name="ManageConsoleWeb_InstanceCount" DefaultValue="1" />
+    <Parameter Name="ManageConsoleWeb_RedirectUri" DefaultValue="http://localhost:10102" />
     <Parameter Name="AccountCenterWeb_InstanceCount" DefaultValue="1" />
     <Parameter Name="ProfileStateService_PartitionCount" DefaultValue="1" />
     <Parameter Name="ProfileStateService_MinReplicaSetSize" DefaultValue="1" />
@@ -106,7 +107,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.1.0" />
+    <ServiceManifestRef ServiceManifestName="SecurityTokenWebPkg" ServiceManifestVersion="1.1.7" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -139,7 +140,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.1.0" />
+    <ServiceManifestRef ServiceManifestName="ManageConsoleWebPkg" ServiceManifestVersion="1.1.7" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
@@ -151,6 +152,7 @@
           </Section>
           <Section Name="IdSvr">
             <Parameter Name="IssuerUri" Value="[IdSvr_IssuerUri]" />
+            <Parameter Name="RedirectUri" Value="[ManageConsoleWeb_RedirectUri]" />
             <Parameter Name="RequireHttps" Value="[IdSvr_RequireHttps]" />
           </Section>
           <Section Name="RabbitMQ_sso2mdm">
@@ -181,7 +183,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.1.0" />
+    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.1.7" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
