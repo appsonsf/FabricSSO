@@ -13,6 +13,7 @@ namespace AccountCenterWeb.Model
         public const string IdNameMust = "必须键入身份证姓名";
         public const string UsernameMust = "必须键入用户名";
         public const string MobileMust = "必须键入手机号";
+        public const string MobileNotExist = "手机号码不存在,请联系管理员!";
         public const string CodeMust = "必须键入手机验证码";
 
         public const string CodeError = "手机验证码错误";

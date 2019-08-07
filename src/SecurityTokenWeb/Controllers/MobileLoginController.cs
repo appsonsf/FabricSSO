@@ -25,7 +25,8 @@ namespace SecurityTokenWeb.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("mobile is null");
-            return await _codeSender.SendAsync(new string[] { mobile });
+            await _codeSender.SendAsync(new string[] { mobile });
+            return "";
         }
     }
 }

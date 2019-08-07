@@ -18,6 +18,7 @@ namespace Sso.Remoting
         public const string ListenerName_ResourceAppService = "ResourceAppService";
         public const string ListenerName_SystemRoleAppService = "SystemRoleAppService";
         public const string ListenerName_UserRoleAppService = "UserRoleAppService";
+        public const string ListenerName_LimitConfigAppService = "LimitConfigAppService";
 
         public const string ManageConsoleServiceName = "ManageConsoleWeb";
         public const string ListenerName_EmployeeAppService = "EmployeeAppService";

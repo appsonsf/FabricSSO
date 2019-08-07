@@ -16,15 +16,17 @@ namespace AccountCenterWeb.Pages
     public class FindUserNameModel : PageModel
     {
         private readonly IUserAppServiceClient _userAppServiceClient;
+        private readonly IMobileCodeSender _mobileCodeSender;
 
-        public FindUserNameModel(IUserAppServiceClient userAppServiceClient, IMobileCodeSender mobileCodeSender)
+        public FindUserNameModel(IUserAppServiceClient userAppServiceClient,
+            IMobileCodeSender mobileCodeSender
+            )
         {
             _userAppServiceClient = userAppServiceClient;
             _mobileCodeSender = mobileCodeSender;
         }
 
         public bool FindByMobile = false;
-        private readonly IMobileCodeSender _mobileCodeSender;
 
         public async Task<IActionResult> OnPostFindByIdCardNoAsync(string name, string idcardNo)
         {
@@ -72,7 +74,7 @@ namespace AccountCenterWeb.Pages
                 return Page();
             }
 
-            if (!await _mobileCodeSender.CheckAsync(mobile,code))
+            if (!(await _mobileCodeSender.CheckAsync(mobile, code)))
             {
                 ModelState.AddModelError("", CodeError);
                 return Page();

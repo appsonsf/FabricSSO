@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MassTransit;
 using Base.Csi.Sms.MsgContracts;
+using AppsOnSF.Common.Options;
+using AppsOnSF.Common.Utilities;
 using AppsOnSF.Common.BaseServices;
 
 namespace Sso.Remoting.Events
@@ -36,13 +38,14 @@ namespace Sso.Remoting.Events
                 await _simpleKeyValueService.AddOrUpdate(
                     Constants.SimpleKeyValueServiceContainerName_MobileCode, item, code);
             }
-
+            /*
+            // Related to 
             await _bus.Send<SendMobileCodeCommand>(new
             {
                 PhoneNumbers = phoneNumbers,
                 Code = code,
             });
-
+            */
             return code;
         }
     }

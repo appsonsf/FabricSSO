@@ -15,9 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Sso.Remoting;
+using Sso.Remoting.Events;
 using Sso.Remoting.Models;
 using static AccountCenterWeb.Model.ErrorMessages;
-using Sso.Remoting.Events;
 
 namespace AccountCenterWeb.Pages
 {
@@ -27,7 +27,9 @@ namespace AccountCenterWeb.Pages
         private readonly IUserAppServiceClient _userAppServiceClient;
         private readonly IMobileCodeSender _mobileCodeSender;
 
-        public ModifyMobileModel(IUserAppServiceClient userAppServiceClient,IMobileCodeSender mobileCodeSender)
+        public ModifyMobileModel(
+            IMobileCodeSender mobileCodeSender,
+            IUserAppServiceClient userAppServiceClient)
         {
             _userAppServiceClient = userAppServiceClient;
             _mobileCodeSender = mobileCodeSender;
@@ -45,10 +47,9 @@ namespace AccountCenterWeb.Pages
             {
                 ModelState.AddModelError("", CodeError);
             }
-
-            if (!await _mobileCodeSender.CheckAsync(mobile,code))
+            if (!await _mobileCodeSender.CheckAsync(mobile, code))
             {
-                ModelState.AddModelError("",CodeError);
+                ModelState.AddModelError("", CodeError);
                 return Page();
             }
             var userId = HttpContext.GetUserId();

@@ -58,7 +58,7 @@ namespace ProfileStateService
                 var enumerator = (await users.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
                 while (await enumerator.MoveNextAsync(ct))
                 {
-                    if (string.Equals(enumerator.Current.Value.Username, userName, StringComparison.OrdinalIgnoreCase))
+                    if (enumerator.Current.Value.Username.ToLower() == userName.ToLower())
                     {
                         return _mapper.Map<UserItemDto>(enumerator.Current.Value);
                     }
@@ -77,8 +77,7 @@ namespace ProfileStateService
                 var enumerator = (await users.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
                 while (await enumerator.MoveNextAsync(ct))
                 {
-                    if (string.Equals(enumerator.Current.Value.Username, userNameNumber, StringComparison.OrdinalIgnoreCase) 
-                        || enumerator.Current.Value.EmployeeNumber == userNameNumber)
+                    if (enumerator.Current.Value.Username.ToLower() == userNameNumber.ToLower() || enumerator.Current.Value.EmployeeNumber == userNameNumber)
                     {
                         return _mapper.Map<UserItemDto>(enumerator.Current.Value);
                     }
@@ -519,7 +518,7 @@ namespace ProfileStateService
                     if (userIdToEmployeeMdmIdMapping.ContainsKey(userId))
                     {
                         var updatedUser = currentUser.UpdateEmployeeMdmId(userIdToEmployeeMdmIdMapping[userId]);
-                        await users.TryUpdateAsync(tx, currentUser.Id, updatedUser, currentUser);
+                        await users.SetAsync(tx, currentUser.Id, updatedUser);
                     }
                 }
                 await tx.CommitAsync();
