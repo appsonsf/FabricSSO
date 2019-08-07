@@ -52,6 +52,7 @@ namespace ManageConsoleWeb.InitalData
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Phone,
                         IdentityServerConstants.StandardScopes.Profile,
                         "profile.ext"
                     },

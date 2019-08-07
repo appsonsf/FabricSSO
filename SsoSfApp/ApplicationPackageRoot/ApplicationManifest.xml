@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.2.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SsoType" ApplicationTypeVersion="1.2.1" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="ScanLoginService_InstanceCount" DefaultValue="1" />
     <Parameter Name="ConfigService_InstanceCount" DefaultValue="1" />
@@ -181,7 +181,7 @@
     </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.2.0" />
+    <ServiceManifestRef ServiceManifestName="AccountCenterWebPkg" ServiceManifestVersion="1.2.1" />
     <ConfigOverrides>
       <ConfigOverride Name="Config">
         <Settings>
