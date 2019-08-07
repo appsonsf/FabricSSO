@@ -16,10 +16,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="jQuery" Version="1.9.0" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.5" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.4" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.6" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Inputs.Trace" Version="1.4.1" />
-    <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.Kestrel" Version="3.3.664" />
+    <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.Kestrel" Version="3.4.658" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Inputs.EventSource" Version="1.4.6" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Inputs.Serilog" Version="1.4.0" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Outputs.ElasticSearch" Version="2.6.1" />
