@@ -5,7 +5,6 @@
     <Parameter Name="ConfigService_InstanceCount" DefaultValue="1" />
     <Parameter Name="SecurityTokenWeb_InstanceCount" DefaultValue="1" />
     <Parameter Name="ManageConsoleWeb_InstanceCount" DefaultValue="1" />
-    <Parameter Name="ManageConsoleWeb_RedirectUri" DefaultValue="http://localhost:10102" />
     <Parameter Name="AccountCenterWeb_InstanceCount" DefaultValue="1" />
     <Parameter Name="ProfileStateService_PartitionCount" DefaultValue="1" />
     <Parameter Name="ProfileStateService_MinReplicaSetSize" DefaultValue="1" />
@@ -152,7 +151,6 @@
           </Section>
           <Section Name="IdSvr">
             <Parameter Name="IssuerUri" Value="[IdSvr_IssuerUri]" />
-            <Parameter Name="RedirectUri" Value="[ManageConsoleWeb_RedirectUri]" />
             <Parameter Name="RequireHttps" Value="[IdSvr_RequireHttps]" />
           </Section>
           <Section Name="RabbitMQ_sso2mdm">

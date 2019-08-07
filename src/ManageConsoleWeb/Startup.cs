@@ -113,12 +113,6 @@ namespace ManageConsoleWeb
 
                             return Task.CompletedTask;
                         },
-
-                        //OnTokenValidated = (context) =>
-                        //{
-                        //    context.Response.Headers.Add("Location", idsvrOptions.GetValue<string>("RedirectUri"));
-                        //    return Task.CompletedTask;
-                        //}
                     };
                 });
             #endregion
