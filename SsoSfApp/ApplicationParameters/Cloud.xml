@@ -32,5 +32,6 @@
     <Parameter Name="RSAKey" Value="#{RSAKey}#" />
     <Parameter Name="General_StaticFileSiteHost_AccountCenter" Value="http://localhost:10101" />
     <Parameter Name="General_StaticFileSiteHost_SecurityToken" Value="http://localhost:10103" />
+    <Parameter Name="General_StaticFileSiteHost_ManageConsole" Value="http://localhost:10102" />
   </Parameters>
 </Application>

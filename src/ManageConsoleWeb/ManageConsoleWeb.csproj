@@ -33,11 +33,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Base.Mdm.Org.MsgContracts" Version="1.0.3" />
-    <PackageReference Include="Hangfire" Version="1.7.3" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.5" />
+    <PackageReference Include="Hangfire" Version="1.7.6" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.4" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.6" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Inputs.Trace" Version="1.4.1" />
-    <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.Kestrel" Version="3.3.664" />
+    <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.Kestrel" Version="3.4.658" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Inputs.EventSource" Version="1.4.6" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Inputs.Serilog" Version="1.4.0" />
     <PackageReference Include="Microsoft.Diagnostics.EventFlow.Outputs.ElasticSearch" Version="2.6.1" />
@@ -50,14 +50,6 @@
     <ProjectReference Include="..\OM.Base.Sso.Messages\OM.Base.Sso.Messages.csproj" />
     <ProjectReference Include="..\Sso.Remoting\Sso.Remoting.csproj" />
     <ProjectReference Include="..\WebCommon\WebCommon.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\images\banner1.svg" />
-    <None Include="wwwroot\images\banner2.svg" />
-    <None Include="wwwroot\images\banner3.svg" />
-    <None Include="wwwroot\images\banner4.svg" />
-    <None Include="wwwroot\js\site.js" />
-    <None Include="wwwroot\js\site.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="PackageRoot\Config\eventFlowConfig.json">

@@ -23,6 +23,7 @@ using ServiceFabricContrib;
 using Sso.Remoting;
 using Sso.Remoting.Events;
 using WebCommon;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace AccountCenterWeb
 {
@@ -38,6 +39,14 @@ namespace AccountCenterWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.All;
+
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
+
             services.AddHealthChecks();
 
 #if !DEBUG
@@ -66,7 +75,7 @@ namespace AccountCenterWeb
             });
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            #region  
+            #region  IdSvr
             var idsvrOptions = Configuration.GetSection("IdSvr");
             services
                 .AddAuthentication(options =>
@@ -80,8 +89,8 @@ namespace AccountCenterWeb
                     options.SignInScheme = "Cookies";
                     options.Authority = idsvrOptions.GetValue<string>("IssuerUri");
                     options.RequireHttpsMetadata = idsvrOptions.GetValue<bool>("RequireHttps");
-                    options.ClientId = "SSO_AC_Web_001";
-                    options.ClientSecret = "SSOACWeb001";
+                    options.ClientId = "sso.ac";
+                    options.ClientSecret = "sso_ac";
                     options.ResponseType = "code id_token";
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -128,6 +137,8 @@ namespace AccountCenterWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders();
+
             app.UseHealthChecks("/health");
 
             loggerFactory.AddDebug();

@@ -11,7 +11,7 @@
   </Section>
 
   <Section Name="General">
-    <Parameter Name="StaticFileSiteHost" Value="http://localhost:10103"/>
+    <Parameter Name="StaticFileSiteHost" Value="http://localhost:10102"/>
   </Section>
 
   <Section Name="IdSvr">

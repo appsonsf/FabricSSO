@@ -1,9 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceManifest Name="ManageConsoleWebPkg"
-                 Version="1.0.10"
-                 xmlns="http://schemas.microsoft.com/2011/01/fabric"
-                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ServiceManifest Name="ManageConsoleWebPkg" Version="1.2.0" xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ServiceTypes>
     <!-- This is the name of your ServiceType. 
          This name must match the string used in RegisterServiceType call in Program.cs. -->
@@ -22,7 +18,7 @@
   </ServiceTypes>
 
   <!-- Code package is your service executable. -->
-  <CodePackage Name="Code" Version="1.0.10">
+  <CodePackage Name="Code" Version="1.2.0">
     <EntryPoint>
       <ExeHost>
         <Program>ManageConsoleWeb.exe</Program>
@@ -33,7 +29,7 @@
 
   <!-- Config package is the contents of the Config directoy under PackageRoot that contains an 
        independently-updateable and versioned set of custom configuration settings for your service. -->
-  <ConfigPackage Name="Config" Version="1.0.9" />
+  <ConfigPackage Name="Config" Version="1.2.0" />
 
   <Resources>
     <Endpoints>
